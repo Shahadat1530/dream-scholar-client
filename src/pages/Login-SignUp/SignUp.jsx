@@ -5,11 +5,14 @@ import Lottie from 'lottie-react';
 import registerLottie from '../../assets/register-lottie.json';
 import { Helmet } from 'react-helmet-async';
 import useAuth from '../hooks/useAuth';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
     const { createNewUser, updateUserProfile, setUser, handleGoogle } = useAuth();
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
     const handleSignUp = e => {
         e.preventDefault();
 
@@ -39,14 +42,38 @@ const SignUp = () => {
                 setUser(user);
                 updateUserProfile({ displayName: name, photoURL: photo })
                     .then(() => {
-                        navigate('/');
+                        const userInfo = {
+                            name: name,
+                            email: email
+                        };
+
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    Swal.fire({
+                                        title: "SignUp Success!",
+                                        showClass: {
+                                            popup: `
+                                            animate__animated
+                                            animate__fadeInUp
+                                            animate__faster
+                                          `
+                                        },
+                                        hideClass: {
+                                            popup: `
+                                            animate__animated
+                                            animate__fadeOutDown
+                                            animate__faster
+                                          `
+                                        }
+                                    });
+                                    navigate('/');
+                                }
+                            })
                     })
-                    .catch((err) => {
+                    .catch(err => {
                         setError(err.message)
-                    });
-            })
-            .catch(err => {
-                setError(err.message)
+                    })
             })
 
     }
