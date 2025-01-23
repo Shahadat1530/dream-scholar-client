@@ -2,7 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Login from "../pages/Login-SignUp/Login";
 import SignUp from "../pages/Login-SignUp/SignUp";
-import UserDashboard from "../pages/Dashboard/UserDashboard";
+import UserDashboard from "../pages/Dashboard/UserDashboard/UserDashboard";
+import MyProfile from "../pages/Dashboard/UserDashboard/MyProfile";
 
 
 
@@ -23,7 +24,19 @@ const router = createBrowserRouter([
     },
     {
       path: '/userDashboard',
-      element: <UserDashboard></UserDashboard>
+      element: <UserDashboard></UserDashboard>,
+      children: [
+        {
+          path: 'myProfile',
+          element: <MyProfile></MyProfile>
+        },
+        {
+          path: 'myApplication',
+        },
+        {
+          path: 'myReviews',
+        }
+      ]
     }
   ]);
 
