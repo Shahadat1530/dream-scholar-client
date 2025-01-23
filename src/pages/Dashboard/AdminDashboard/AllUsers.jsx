@@ -41,6 +41,21 @@ const AllUsers = () => {
         });
     };
 
+    const handleRoleUpdate = (user, newRole) => {
+        console.log(newRole);
+        axiosSecure.patch(`/users/role/${user._id}`, { role: newRole })
+            .then((res) => {
+                if (res.data.modifiedCount > 0) {
+                    refetch();
+                    Swal.fire({
+                        title: "Success!",
+                        text: `User role updated to ${newRole}.`,
+                        icon: "success"
+                    });
+                }
+            });
+    };
+
     return (
         <div>
             <div className="overflow-x-auto">
@@ -59,10 +74,19 @@ const AllUsers = () => {
                             users.map((user, index) =>
                                 <tr key={user._id}>
                                     <th>{index + 1}</th>
-                                    <td>{user.name}</td>
-                                    <td>{user.email}</td>
+                                    <td>{user?.name}</td>
+                                    <td>{user?.email}</td>
                                     <td>
-                                        {/* role */}
+                                        <select
+                                            value={user?.role}
+                                            onChange={(e) => handleRoleUpdate(user, e.target.value)}
+                                            disabled={user?.role === "admin"}
+                                            className="select select-bordered select-sm"
+                                        >
+                                            <option value="user">User</option>
+                                            <option value="moderator">Moderator</option>
+                                            <option value="admin">Admin</option>
+                                        </select>
                                     </td>
                                     <td>
                                         <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-lg">

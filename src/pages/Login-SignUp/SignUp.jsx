@@ -29,10 +29,10 @@ const SignUp = () => {
             return;
         }
 
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).*$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*(),.?":{}|<>]).*$/;
 
         if (!passwordRegex.test(password)) {
-            setError('at least one uppercase, and one lowercase character!');
+            setError('Password must contain at least one uppercase letter, one lowercase letter, and one special character!');
             return;
         }
 
