@@ -49,9 +49,13 @@ const router = createBrowserRouter([
       element: <AdminDashboard></AdminDashboard>,
       children: [
         {
+          path:'myProfile',
+          element: <MyProfile></MyProfile>
+        },
+        {
           path:'users',
           element: <AllUsers></AllUsers>
-        }
+        },
       ]
     }
   ]);
