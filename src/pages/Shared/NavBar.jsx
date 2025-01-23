@@ -10,9 +10,14 @@ const NavBar = () => {
         {
             user && user?.email ?
                 <>
-                    <li><NavLink to='/all-books' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">All Books</NavLink></li>
-                    <li><NavLink to='/add-books' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">Add Books</NavLink></li>
-                    <li><NavLink to='/borrowed-books' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">Borrowed Books</NavLink></li>
+                    <li><NavLink to='/' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">All Scholarship</NavLink></li>
+                    {
+                        user && user?.role === 'admin'
+                            ?
+                            <li><NavLink to='/' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">Admin Dashboard</NavLink></li>
+                            :
+                            < li > <NavLink to='/userDashboard' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">User Dashboard</NavLink></li>
+                    }
                 </>
                 : ''
         }
@@ -43,7 +48,7 @@ const NavBar = () => {
                             {links}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">Libro Vault</a>
+                    <a className="btn btn-ghost text-xl">Dream Scholar Hub</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
