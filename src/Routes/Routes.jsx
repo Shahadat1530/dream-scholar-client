@@ -5,6 +5,7 @@ import SignUp from "../pages/Login-SignUp/SignUp";
 import UserDashboard from "../pages/Dashboard/UserDashboard/UserDashboard";
 import MyProfile from "../pages/Dashboard/UserDashboard/MyProfile";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
+import AllUsers from "../pages/Dashboard/AdminDashboard/AllUsers";
 
 
 
@@ -48,7 +49,8 @@ const router = createBrowserRouter([
       element: <AdminDashboard></AdminDashboard>,
       children: [
         {
-          path:'users'
+          path:'users',
+          element: <AllUsers></AllUsers>
         }
       ]
     }
