@@ -5,10 +5,12 @@ import Lottie from 'lottie-react';
 import loginLottie from '../../assets/login-lottie.json'
 import { Helmet } from 'react-helmet-async';
 import useAuth from '../hooks/useAuth';
+import useAxiosPublic from '../hooks/useAxiosPublic';
 
 const Login = () => {
     const { userLogin, setUser, handleGoogle } = useAuth();
     const [error, setError] = useState('');
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
 
@@ -33,7 +35,15 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
-                navigate('/');
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email
+                };
+
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        navigate('/')
+                    })
             })
             .catch(err => {
                 setError(err.message)

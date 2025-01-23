@@ -4,6 +4,7 @@ import Login from "../pages/Login-SignUp/Login";
 import SignUp from "../pages/Login-SignUp/SignUp";
 import UserDashboard from "../pages/Dashboard/UserDashboard/UserDashboard";
 import MyProfile from "../pages/Dashboard/UserDashboard/MyProfile";
+import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 
 
 
@@ -22,6 +23,8 @@ const router = createBrowserRouter([
         }
       ]
     },
+
+    // users routes
     {
       path: '/userDashboard',
       element: <UserDashboard></UserDashboard>,
@@ -35,6 +38,17 @@ const router = createBrowserRouter([
         },
         {
           path: 'myReviews',
+        }
+      ]
+    },
+
+    // admin and moderator routes
+    {
+      path: '/adminDashboard',
+      element: <AdminDashboard></AdminDashboard>,
+      children: [
+        {
+          path:'users'
         }
       ]
     }

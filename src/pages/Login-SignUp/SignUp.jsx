@@ -83,7 +83,15 @@ const SignUp = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
-                navigate('/');
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email
+                };
+
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        navigate('/')
+                    })
             })
             .catch(err => {
                 setError(err.message)
