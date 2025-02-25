@@ -7,11 +7,11 @@ const NavBar = () => {
     const { user, logOut } = useAuth();
     const [isAdmin, , refetch] = useAdmin();
 
-    useEffect(() => {
-        if (user && !isAdmin) {
-            refetch();
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (user && !isAdmin) {
+    //         refetch();
+    //     }
+    // }, [])
 
     const links = <>
         <li><NavLink to='/' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">Home</NavLink></li>

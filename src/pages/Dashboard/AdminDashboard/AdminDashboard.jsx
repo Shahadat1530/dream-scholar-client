@@ -1,6 +1,6 @@
 import React from 'react';
 import { CgProfile } from 'react-icons/cg';
-import { FaHome, FaUsers } from 'react-icons/fa';
+import { FaHome, FaSchool, FaUsers } from 'react-icons/fa';
 import { MdReviews, MdSettingsApplications } from 'react-icons/md';
 import { NavLink, Outlet } from 'react-router-dom';
 
@@ -11,6 +11,9 @@ const AdminDashboard = () => {
                 <ul className='menu p-5 text-white font-bold space-y-4 md:text-lg'>
                     <li>
                         <NavLink to='/adminDashboard/myProfile'><CgProfile></CgProfile> My Profile</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/adminDashboard/addScholarships'><FaSchool></FaSchool>Add Scholarships</NavLink>
                     </li>
                     <li>
                         <NavLink to='/adminDashboard/manageApplication'><MdSettingsApplications></MdSettingsApplications> Manage Application</NavLink>
