@@ -5,13 +5,13 @@ import useAdmin from '../hooks/useAdmin';
 
 const NavBar = () => {
     const { user, logOut } = useAuth();
-    const [isAdmin, , refetch] = useAdmin();
+    const [isAdmin, isAdminLoading] = useAdmin(); // Remove refetch
 
-    // useEffect(() => {
-    //     if (user && !isAdmin) {
-    //         refetch();
-    //     }
-    // }, [])
+    // Remove useEffect (no longer needed)
+  
+    if (isAdminLoading) {
+      return <div>Loading...</div>;
+    }
 
     const links = <>
         <li><NavLink to='/' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">Home</NavLink></li>
