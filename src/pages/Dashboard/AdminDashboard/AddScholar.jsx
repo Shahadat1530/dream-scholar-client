@@ -1,11 +1,59 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+import useAuth from '../../hooks/useAuth';
+
+
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddScholar = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { user } = useAuth();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
-    const onSubmit = data => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        const imageFile = { image: data.universityImage[0] };
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        if (res.data.success) {
+            const addScholar = {
+                scholarshipName: data.scholarshipName,
+                universityName: data.universityName,
+                universityImage: res.data.data.display_url,
+                universityCountry: data.universityCountry,
+                universityCity: data.universityCity,
+                universityRank: parseInt(data.universityRank),
+                subjectCategory: data.subjectCategory,
+                scholarshipCategory: data.scholarshipCategory,
+                tuitionFees: parseInt(data.tuitionFees),
+                applicationFees: parseInt(data.applicationFees),
+                serviceCharge: parseInt(data.serviceCharge),
+                scholarshipPostDate: data.scholarshipPostDate,
+                applicationDeadline: data.applicationDeadline,
+                postedEmail: user?.email
+
+            };
+
+            const scholarRes = await axiosSecure.post('/scholar', addScholar)
+            if (scholarRes.data.insertedId) {
+                reset();
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Scholarship added Successfully!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
     };
 
     return (
@@ -15,10 +63,20 @@ const AddScholar = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Scholarship Name</label>
                     <input
+                        type='text'
                         {...register('scholarshipName', { required: true })}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                     />
                     {errors.scholarshipName && <span className="text-red-500">This field is required</span>}
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700">University Name</label>
+                    <input
+                        type='text'
+                        {...register('universityName', { required: true })}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                    />
+                    {errors.universityName && <span className="text-red-500">This field is required</span>}
                 </div>
 
                 <div>
@@ -34,6 +92,7 @@ const AddScholar = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">University Country</label>
                     <input
+                        type='text'
                         {...register('universityCountry', { required: true })}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                     />
@@ -43,6 +102,7 @@ const AddScholar = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">University City</label>
                     <input
+                        type='text'
                         {...register('universityCity', { required: true })}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                     />
@@ -65,6 +125,7 @@ const AddScholar = () => {
                         {...register('subjectCategory', { required: true })}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                     >
+                        <option value="" disabled>Select Subject</option>
                         <option value="Agriculture">Agriculture</option>
                         <option value="Engineering">Engineering</option>
                         <option value="Doctor">Doctor</option>
@@ -78,6 +139,7 @@ const AddScholar = () => {
                         {...register('scholarshipCategory', { required: true })}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                     >
+                        <option value="" disabled>Select Scholarship Type</option>
                         <option value="Full fund">Full fund</option>
                         <option value="Partial">Partial</option>
                         <option value="Self-fund">Self-fund</option>
@@ -138,10 +200,10 @@ const AddScholar = () => {
                     <label className="block text-sm font-medium text-gray-700">Posted User Email</label>
                     <input
                         type="email"
-                        {...register('postedUserEmail', { required: true })}
+                        disabled
+                        defaultValue={user?.email}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
                     />
-                    {errors.postedUserEmail && <span className="text-red-500">This field is required</span>}
                 </div>
 
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Add Scholarship</button>
