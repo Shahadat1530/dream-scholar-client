@@ -17,7 +17,7 @@ const NavBar = () => {
         <li><NavLink to='/' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">Home</NavLink></li>
         {user ? (
             <>
-                <li><NavLink to='/' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">All Scholarship</NavLink></li>
+                <li><NavLink to='/scholarships' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">All Scholarship</NavLink></li>
                 
                 {isAdmin ? (
                     <li><NavLink to='/adminDashboard' className="nav-link px-3 py-2 rounded-md text-gray-800 hover:text-white transition duration-300 ease-in-out">Admin Dashboard</NavLink></li>

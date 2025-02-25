@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const AllScholarships = () => {
     const [scholarships, setScholarships] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const axiosPublic = useAxiosPublic();
 
     useEffect(() => {
-        axios.get("https://your-api-url.com/scholarships") // Replace with your API endpoint
-            .then(response => setScholarships(response.data))
-            .catch(error => console.error("Error fetching scholarships:", error));
+        axiosPublic.get('/scholar')
+            .then(res => setScholarships(res.data))
     }, []);
 
     const filteredScholarships = scholarships.filter(scholarship =>
-        scholarship.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scholarship.university.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scholarship.degree.toLowerCase().includes(searchQuery.toLowerCase())
+        scholarship?.scholarshipName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scholarship?.universityName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scholarship?.subjectCategory.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
         <div className="container mx-auto p-4">
-            {/* Search Box */}
+
             <div className="mb-4 flex">
                 <input
                     type="text"
@@ -33,18 +33,18 @@ const AllScholarships = () => {
                 </button>
             </div>
 
-            {/* Scholarship Cards */}
+
             <div className="grid md:grid-cols-3 gap-4">
                 {filteredScholarships.length > 0 ? (
                     filteredScholarships.map(scholarship => (
                         <div key={scholarship.id} className="border p-4 rounded-md shadow-md">
-                            <img src={scholarship.image} alt={scholarship.name} className="w-full h-40 object-cover rounded-md" />
-                            <h3 className="text-lg font-semibold mt-2">{scholarship.name}</h3>
-                            <p className="text-sm text-gray-600">{scholarship.university}</p>
-                            <p className="text-sm text-gray-600">{scholarship.degree}</p>
+                            <img src={scholarship?.universityImage} alt={scholarship?.universityName} className="w-full h-40 object-cover rounded-md" />
+                            <h3 className="text-lg font-semibold mt-2">{scholarship.scholarshipName}</h3>
+                            <p className="text-sm text-gray-600">{scholarship.universityName}</p>
+                            <p className="text-sm text-gray-600">{scholarship.subjectCategory}</p>
                             <button
                                 className="mt-2 bg-green-500 text-white px-4 py-2 rounded-md"
-                                onClick={() => window.location.href = `/scholarship/${scholarship.id}`}>
+                            >
                                 Details
                             </button>
                         </div>

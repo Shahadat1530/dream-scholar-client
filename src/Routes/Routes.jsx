@@ -7,6 +7,7 @@ import MyProfile from "../pages/Dashboard/UserDashboard/MyProfile";
 import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 import AllUsers from "../pages/Dashboard/AdminDashboard/AllUsers";
 import AddScholar from "../pages/Dashboard/AdminDashboard/AddScholar";
+import AllScholarships from "../pages/Home/AllScholarships";
 
 
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       path: "/",
       element: <MainLayout></MainLayout>,
       children: [
+        {
+          path: 'scholarships',
+          element: <AllScholarships></AllScholarships>
+        },
         {
           path: 'login',
           element: <Login></Login>
