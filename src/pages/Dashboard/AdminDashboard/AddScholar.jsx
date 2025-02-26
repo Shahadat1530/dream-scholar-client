@@ -4,6 +4,7 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useAuth from '../../hooks/useAuth';
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -58,6 +59,9 @@ const AddScholar = () => {
 
     return (
         <div className="p-6 max-w-4xl mx-auto bg-gray-200 shadow-md rounded-lg">
+            <Helmet>
+                <title>Add Scholar</title>
+            </Helmet>
             <h2 className="text-2xl font-bold mb-4">Add Scholarship</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>

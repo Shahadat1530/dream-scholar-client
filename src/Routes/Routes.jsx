@@ -9,6 +9,8 @@ import AllUsers from "../pages/Dashboard/AdminDashboard/AllUsers";
 import AddScholar from "../pages/Dashboard/AdminDashboard/AddScholar";
 import AllScholarships from "../pages/Home/AllScholarships";
 import Details from "../components/Details";
+import ErrorPage from "../components/ErrorPage";
+import ApplicationForm from "../components/ApplicationForm";
 
 
 
@@ -24,6 +26,11 @@ const router = createBrowserRouter([
         {
           path: 'scholarships/details/:id',
           element: <Details></Details>,
+          loader: ({params}) => fetch(`http://localhost:5000/scholar/${params.id}`)
+        },
+        {
+          path: '/applicationForm/:id',
+          element: <ApplicationForm></ApplicationForm>,
           loader: ({params}) => fetch(`http://localhost:5000/scholar/${params.id}`)
         },
         {
@@ -73,6 +80,10 @@ const router = createBrowserRouter([
           element: <AllUsers></AllUsers>
         },
       ]
+    },
+    {
+      path:'/*',
+      element: <ErrorPage></ErrorPage>
     }
   ]);
 
