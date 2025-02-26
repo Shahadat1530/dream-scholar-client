@@ -8,6 +8,7 @@ import AdminDashboard from "../pages/Dashboard/AdminDashboard/AdminDashboard";
 import AllUsers from "../pages/Dashboard/AdminDashboard/AllUsers";
 import AddScholar from "../pages/Dashboard/AdminDashboard/AddScholar";
 import AllScholarships from "../pages/Home/AllScholarships";
+import Details from "../components/Details";
 
 
 
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
         {
           path: 'scholarships',
           element: <AllScholarships></AllScholarships>
+        },
+        {
+          path: 'scholarships/details/:id',
+          element: <Details></Details>,
+          loader: ({params}) => fetch(`http://localhost:5000/scholar/${params.id}`)
         },
         {
           path: 'login',

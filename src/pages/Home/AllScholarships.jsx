@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 const AllScholarships = () => {
     const [scholarships, setScholarships] = useState([]);
@@ -37,16 +38,16 @@ const AllScholarships = () => {
             <div className="grid md:grid-cols-3 gap-4">
                 {filteredScholarships.length > 0 ? (
                     filteredScholarships.map(scholarship => (
-                        <div key={scholarship.id} className="border p-4 rounded-md shadow-md">
+                        <div key={scholarship._id} className="border p-4 rounded-md hover:shadow-md">
                             <img src={scholarship?.universityImage} alt={scholarship?.universityName} className="w-full h-40 object-cover rounded-md" />
                             <h3 className="text-lg font-semibold mt-2">{scholarship.scholarshipName}</h3>
                             <p className="text-sm text-gray-600">{scholarship.universityName}</p>
-                            <p className="text-sm text-gray-600">{scholarship.subjectCategory}</p>
-                            <button
+                            <p className="text-sm mb-2 text-gray-600">{scholarship.subjectCategory}</p>
+                            <Link to={`details/${scholarship._id}`}
                                 className="mt-2 bg-green-500 text-white px-4 py-2 rounded-md"
                             >
                                 Details
-                            </button>
+                            </Link>
                         </div>
                     ))
                 ) : (
