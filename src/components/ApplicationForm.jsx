@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../pages/hooks/useAxiosPublic";
@@ -15,7 +15,7 @@ const ApplicationForm = () => {
     const scholarship = useLoaderData();
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
-
+    const navigate = useNavigate();
     useEffect(() => {
         axiosSecure.get('/users')
             .then(res => setData(res.data))
@@ -50,6 +50,7 @@ const ApplicationForm = () => {
                 userEmail: user?.email,
                 userId: currentUser._id,
                 scholarShipId: scholarship._id,
+                applicationStatus: 'pending',
                 currentDate: new Date().toISOString().split('T')[0],
             };
 
@@ -63,6 +64,7 @@ const ApplicationForm = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                navigate('/scholarships');
             }
         }
     };

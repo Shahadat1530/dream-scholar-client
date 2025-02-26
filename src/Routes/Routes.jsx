@@ -11,6 +11,7 @@ import AllScholarships from "../pages/Home/AllScholarships";
 import Details from "../components/Details";
 import ErrorPage from "../components/ErrorPage";
 import ApplicationForm from "../components/ApplicationForm";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -25,13 +26,13 @@ const router = createBrowserRouter([
         },
         {
           path: 'scholarships/details/:id',
-          element: <Details></Details>,
-          loader: ({params}) => fetch(`http://localhost:5000/scholar/${params.id}`)
+          element: <PrivateRoute><Details></Details></PrivateRoute>,
+          loader: ({params}) => fetch(`https://dream-scholar-hub-server.vercel.app/scholar/${params.id}`)
         },
         {
           path: '/applicationForm/:id',
-          element: <ApplicationForm></ApplicationForm>,
-          loader: ({params}) => fetch(`http://localhost:5000/scholar/${params.id}`)
+          element: <PrivateRoute><ApplicationForm></ApplicationForm></PrivateRoute>,
+          loader: ({params}) => fetch(`https://dream-scholar-hub-server.vercel.app/scholar/${params.id}`)
         },
         {
           path: 'login',
@@ -47,11 +48,11 @@ const router = createBrowserRouter([
     // users routes
     {
       path: '/userDashboard',
-      element: <UserDashboard></UserDashboard>,
+      element: <PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>,
       children: [
         {
           path: 'myProfile',
-          element: <MyProfile></MyProfile>
+          element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
         },
         {
           path: 'myApplication',
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
     // admin and moderator routes
     {
       path: '/adminDashboard',
-      element: <AdminDashboard></AdminDashboard>,
+      element: <PrivateRoute><AdminDashboard></AdminDashboard></PrivateRoute>,
       children: [
         {
           path:'myProfile',

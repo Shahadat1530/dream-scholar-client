@@ -42,7 +42,6 @@ const AllUsers = () => {
     };
 
     const handleRoleUpdate = (user, newRole) => {
-        console.log(newRole);
         axiosSecure.patch(`/users/role/${user._id}`, { role: newRole })
             .then((res) => {
                 if (res.data.modifiedCount > 0) {
