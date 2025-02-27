@@ -50,6 +50,8 @@ const ApplicationForm = () => {
                 userEmail: user?.email,
                 userId: currentUser._id,
                 scholarShipId: scholarship._id,
+                applicationFees: scholarship.applicationFees,
+                serviceCharge: scholarship.serviceCharge,
                 applicationStatus: 'pending',
                 currentDate: new Date().toISOString().split('T')[0],
             };
