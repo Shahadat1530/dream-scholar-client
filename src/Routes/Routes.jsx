@@ -12,6 +12,7 @@ import Details from "../components/Details";
 import ErrorPage from "../components/ErrorPage";
 import ApplicationForm from "../components/ApplicationForm";
 import PrivateRoute from "./PrivateRoute";
+import Home from "../pages/Home/Home";
 
 
 
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       path: "/",
       element: <MainLayout></MainLayout>,
       children: [
+        {
+          path: '/',
+          element: <Home></Home>
+        },
         {
           path: 'scholarships',
           element: <AllScholarships></AllScholarships>

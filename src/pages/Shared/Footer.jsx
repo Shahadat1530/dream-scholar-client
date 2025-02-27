@@ -16,7 +16,6 @@ const Footer = () => {
           <ul className="mt-2 space-y-2">
             <li className="hover:underline">Home</li>
             <li className="hover:underline">All Scholarships</li>
-            <li className="hover:underline">Dashboard</li>
             <li className="hover:underline">Contact Us</li>
           </ul>
         </div>
