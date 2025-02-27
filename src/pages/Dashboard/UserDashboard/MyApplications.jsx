@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
@@ -8,7 +8,9 @@ import { useQuery } from "@tanstack/react-query";
 const MyApplications = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-
+    const [selectedApp, setSelectedApp] = useState(null);
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    
     const { data: applications = [], isLoading, refetch } = useQuery({
         queryKey: ['scholarApplied', user?.email],
         queryFn: async () => {
@@ -57,6 +59,16 @@ const MyApplications = () => {
         });
     };
 
+    const openReviewModal = (app) => {
+        setSelectedApp(app);
+        setIsReviewModalOpen(true);
+    };
+
+    const closeReviewModal = () => {
+        setSelectedApp(null);
+        setIsReviewModalOpen(false);
+    };
+
     return (
         <div className="container mx-auto py-10 px-4">
             <h2 className="text-2xl font-bold text-center mb-6">📄 My Applications</h2>
@@ -93,38 +105,16 @@ const MyApplications = () => {
                                     <td className="py-2 px-4">{app.degree}</td>
                                     <td className="py-2 px-4">${app.applicationFees}</td>
                                     <td className="py-2 px-4">${app.serviceCharge}</td>
-                                    <td
-                                        className={`py-2 px-4 font-bold ${app.applicationStatus === "pending"
-                                                ? "text-yellow-500"
-                                                : app.applicationStatus === "Completed"
-                                                    ? "text-green-500"
-                                                    : app.applicationStatus === "Rejected"
-                                                        ? "text-red-500"
-                                                        : "text-blue-500"
-                                            }`}
-                                    >
-                                        {app.applicationStatus}
-                                    </td>
+                                    <td className={`py-2 px-4 font-bold ${app.applicationStatus === "pending" ? "text-yellow-500" : app.applicationStatus === "Completed" ? "text-green-500" : app.applicationStatus === "Rejected" ? "text-red-500" : "text-blue-500"}`}>{app.applicationStatus}</td>
                                     <td className="py-2 px-4 space-y-1">
-                                        <Link to={`/scholarships/details/${app.scholarShipId}`} className="btn bg-blue-500 text-white px-3 py-1 rounded">
-                                            Details
-                                        </Link>
+                                        <Link to={`/scholarships/details/${app.scholarShipId}`} className="btn bg-blue-500 text-white px-3 py-1 rounded">Details</Link>
                                         {app.applicationStatus === "pending" && (
-                                            <button className="bg-yellow-500 text-white px-3 py-1 rounded">
-                                                Edit
-                                            </button>
+                                            <button className="bg-yellow-500 text-white px-3 py-1 rounded">Edit</button>
                                         )}
-                                        <button
-                                            onClick={() => handleDelete(app._id)}
-                                            className="bg-red-500 text-white px-3 py-1 rounded"
-                                        >
-                                            Cancel
-                                        </button>
+                                        <button onClick={() => handleDelete(app._id)} className="bg-red-500 text-white px-3 py-1 rounded">Cancel</button>
                                     </td>
                                     <td className="py-2 px-4">
-                                        <button className="bg-green-500 text-white px-3 py-1 rounded">
-                                            Review
-                                        </button>
+                                        <button onClick={() => openReviewModal(app)} className="bg-green-500 text-white px-3 py-1 rounded">Review</button>
                                     </td>
                                 </tr>
                             ))
@@ -132,6 +122,16 @@ const MyApplications = () => {
                     </tbody>
                 </table>
             </div>
+            {isReviewModalOpen && selectedApp && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded shadow-lg w-96">
+                        <h2 className="text-xl font-bold mb-4">Submit Review for {selectedApp.university}</h2>
+                        <textarea className="w-full p-2 border rounded mb-4" placeholder="Write your review..."></textarea>
+                        <button onClick={closeReviewModal} className="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                        <button className="bg-green-500 text-white px-4 py-2 rounded">Submit</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
