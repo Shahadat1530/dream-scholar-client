@@ -50,6 +50,7 @@ const ApplicationForm = () => {
                 userEmail: user?.email,
                 userId: currentUser._id,
                 scholarShipId: scholarship._id,
+                scholarshipName: scholarship.scholarshipName,
                 applicationFees: scholarship.applicationFees,
                 serviceCharge: scholarship.serviceCharge,
                 applicationStatus: 'pending',

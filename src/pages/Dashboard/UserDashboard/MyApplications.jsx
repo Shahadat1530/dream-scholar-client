@@ -4,13 +4,15 @@ import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 
 const MyApplications = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [selectedApp, setSelectedApp] = useState(null);
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-    
+    const { register, handleSubmit, reset } = useForm();
+
     const { data: applications = [], isLoading, refetch } = useQuery({
         queryKey: ['scholarApplied', user?.email],
         queryFn: async () => {
@@ -69,6 +71,27 @@ const MyApplications = () => {
         setIsReviewModalOpen(false);
     };
 
+    const onSubmitReview = async (data) => {
+        const reviewData = {
+            rating: data.rating,
+            comment: data.comment,
+            date: new Date().toISOString().split('T')[0],
+            scholarshipName: selectedApp?.scholarshipName,
+            universityName: selectedApp?.university,
+            universityId: selectedApp?.scholarShipId,
+            userName: user?.displayName,
+            userEmail: user?.email
+        };
+
+
+        await axiosSecure.post("/reviews", reviewData);
+        reset();
+        Swal.fire("Success!", "Your review has been submitted.", "success");
+        closeReviewModal();
+
+    };
+
+
     return (
         <div className="container mx-auto py-10 px-4">
             <h2 className="text-2xl font-bold text-center mb-6">📄 My Applications</h2>
@@ -126,9 +149,16 @@ const MyApplications = () => {
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded shadow-lg w-96">
                         <h2 className="text-xl font-bold mb-4">Submit Review for {selectedApp.university}</h2>
-                        <textarea className="w-full p-2 border rounded mb-4" placeholder="Write your review..."></textarea>
-                        <button onClick={closeReviewModal} className="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
-                        <button className="bg-green-500 text-white px-4 py-2 rounded">Submit</button>
+                        <form onSubmit={handleSubmit(onSubmitReview)}>
+                            <label className="block mb-2">Rating:</label>
+                            <input type="number" min="1" max="5" {...register("rating")} className="w-full p-2 border rounded mb-4" required />
+
+                            <label className="block mb-2">Review Comment:</label>
+                            <textarea {...register("comment")} className="w-full p-2 border rounded mb-4" placeholder="Write your review..." required></textarea>
+
+                            <button type="button" onClick={closeReviewModal} className="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">Submit</button>
+                        </form>
                     </div>
                 </div>
             )}
