@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 const ManageScholarships = () => {
     const axiosSecure = useAxiosSecure();
-    const [editingScholarship, setEditingScholarship] = useState(null);
+    const [selectedScholarship, setSelectedScholarship] = useState(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const { data: scholarships = [], isLoading, refetch } = useQuery({
-        queryKey: ['reviews'],
+        queryKey: ['scholarships'],
         queryFn: async () => {
             const res = await axiosSecure.get('/scholar');
             return res.data;
@@ -17,7 +21,7 @@ const ManageScholarships = () => {
     });
 
     if (isLoading) {
-        return <p className="text-center text-blue-500">Loading reviews...</p>;
+        return <p className="text-center text-blue-500">Loading scholarships...</p>;
     }
 
     const handleDelete = (id) => {
@@ -27,36 +31,27 @@ const ManageScholarships = () => {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!'
-        })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    axiosSecure.delete(`/scholar/${id}`)
-                        .then(() => {
-                            refetch();
-                            Swal.fire('Deleted!', 'The scholarship has been deleted.', 'success');
-                        })
-                }
-            });
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/scholar/${id}`).then(() => {
+                    refetch();
+                    Swal.fire('Deleted!', 'The scholarship has been deleted.', 'success');
+                });
+            }
+        });
     };
 
     const handleEdit = (scholarship) => {
-        setEditingScholarship(scholarship);
-        Swal.fire({
-            title: "Edit Scholarship",
-            html: `<input id="scholarshipName" class="swal2-input" value="${scholarship.scholarshipName}" />`,
-            showCancelButton: true,
-            confirmButtonText: "Save",
-            preConfirm: () => {
-                const updatedScholarship = {
-                    scholarshipName: document.getElementById("scholarshipName").value,
-                };
-                return axiosSecure.patch(`/scholar/${scholarship._id}`, updatedScholarship)
-                    .then(() => {
-                        setScholarships(scholarships.map(s => s._id === scholarship._id ? { ...s, ...updatedScholarship } : s));
-                        Swal.fire('Updated!', 'Scholarship has been updated.', 'success');
-                    });
-            }
-        });
+        setSelectedScholarship(scholarship);
+        setIsEditModalOpen(true);
+        reset(scholarship);
+    };
+
+    const handleSaveEdit = async (data) => {
+        await axiosSecure.patch(`/scholar/${selectedScholarship._id}`, data);
+        refetch();
+        setIsEditModalOpen(false);
+        Swal.fire('Updated!', 'Scholarship has been updated.', 'success');
     };
 
     return (
@@ -74,6 +69,7 @@ const ManageScholarships = () => {
                         <th className="border px-4 py-2">Degree</th>
                         <th className="border px-4 py-2">Application Fees</th>
                         <th className="border px-4 py-2">Actions</th>
+                        <th className="border px-4 py-2">Cancel</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,13 +81,78 @@ const ManageScholarships = () => {
                             <td className="border px-4 py-2">{scholarship.scholarshipCategory}</td>
                             <td className="border px-4 py-2">${scholarship.applicationFees}</td>
                             <td className="border px-4 py-2">
+                                <Link to={`/scholarships/details/${scholarship._id}`}
+                                    className="bg-green-500 text-white px-2 py-1 rounded"
+                                >Details</Link>
                                 <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2" onClick={() => handleEdit(scholarship)}>Edit</button>
+                            </td>
+                            <td className='px-2'>
                                 <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => handleDelete(scholarship._id)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            {isEditModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+                    <div className="bg-white p-6 rounded shadow-lg w-96">
+                        <h2 className="text-xl font-bold mb-4">Edit Scholarship</h2>
+                        <form onSubmit={handleSubmit(handleSaveEdit)}>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Scholarship Name</label>
+                                <input type="text" {...register('scholarshipName', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                {errors.scholarshipName && <span className="text-red-500">Required</span>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">University Name</label>
+                                <input type="text" {...register('universityName', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                {errors.universityName && <span className="text-red-500">Required</span>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Subject Category</label>
+                                <select {...register('subjectCategory', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                    <option value="" disabled>Select Subject</option>
+                                    <option value="Agriculture">Agriculture</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Doctor">Doctor</option>
+                                </select>
+                                {errors.subjectCategory && <span className="text-red-500">This field is required</span>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Scholarship Category</label>
+                                <select {...register('scholarshipCategory', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                    <option value="" disabled>Select Scholarship Type</option>
+                                    <option value="Full fund">Full fund</option>
+                                    <option value="Partial">Partial</option>
+                                    <option value="Self-fund">Self-fund</option>
+                                </select>
+                                {errors.scholarshipCategory && <span className="text-red-500">This field is required</span>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Application Fees</label>
+                                <input type="number" {...register('applicationFees', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                {errors.applicationFees && <span className="text-red-500">Required</span>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Service Charge</label>
+                                <input type="number" {...register('serviceCharge', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
+                                {errors.serviceCharge && <span className="text-red-500">Required</span>}
+                            </div>
+
+                            <div className="mt-4 flex justify-between">
+                                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Update</button>
+                                <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded-md" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

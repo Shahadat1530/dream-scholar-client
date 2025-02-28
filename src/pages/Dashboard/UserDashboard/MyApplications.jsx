@@ -80,6 +80,7 @@ const MyApplications = () => {
             universityName: selectedApp?.university,
             universityId: selectedApp?.scholarShipId,
             userName: user?.displayName,
+            userImage: user?.photoURL,
             userEmail: user?.email
         };
 
