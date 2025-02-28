@@ -50,13 +50,22 @@ const MyReviews = () => {
             inputValue: review.comment,
             showCancelButton: true,
             confirmButtonText: "Save",
-            preConfirm: (newComment) => {
-                if (!newComment) return Swal.showValidationMessage("Comment cannot be empty!");
-                return axiosSecure.put(`/reviews/${review._id}`, { comment: newComment })
-                    .then(() => refetch());
+            preConfirm: async (newComment) => {
+
+                const updatedReview = {
+                    comment: newComment,
+                    date: new Date().toISOString().split("T")[0] // Update date to today's date (YYYY-MM-DD)
+                };
+
+                const res = await axiosSecure.patch(`/reviews/${review._id}`, updatedReview);
+                if (res.data.modifiedCount > 0) {
+                    await refetch();
+                    Swal.fire("Updated!", "Your review has been updated.", "success");
+                }
             }
         });
     };
+
 
     return (
         <div className="container mx-auto py-10 px-4">

@@ -15,6 +15,7 @@ import PrivateRoute from "./PrivateRoute";
 import Home from "../pages/Home/Home";
 import MyApplications from "../pages/Dashboard/UserDashboard/MyApplications";
 import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews";
+import ManageScholarships from "../pages/Dashboard/AdminDashboard/ManageScholarships";
 
 
 
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
         {
           path:'addScholarships',
           element: <AddScholar></AddScholar>
+        },
+        {
+          path:'manageApplication',
+          element: <ManageScholarships></ManageScholarships>
         },
         {
           path:'users',

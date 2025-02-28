@@ -10,7 +10,7 @@ const NavBar = () => {
     // Remove useEffect (no longer needed)
 
     if (isAdminLoading) {
-        return <div>Loading...</div>;
+        return <div><progress className="progress w-56"></progress></div>;
     }
 
     const links = <>
