@@ -14,6 +14,7 @@ import ApplicationForm from "../components/ApplicationForm";
 import PrivateRoute from "./PrivateRoute";
 import Home from "../pages/Home/Home";
 import MyApplications from "../pages/Dashboard/UserDashboard/MyApplications";
+import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews";
 
 
 
@@ -66,6 +67,7 @@ const router = createBrowserRouter([
         },
         {
           path: 'myReviews',
+          element: <MyReviews></MyReviews>
         }
       ]
     },
