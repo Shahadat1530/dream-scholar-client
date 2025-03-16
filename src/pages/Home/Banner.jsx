@@ -12,7 +12,7 @@ const Banner = () => {
         <div>
             {/* bg-image with text */}
             <div
-                className="relative text-center text-white py-16 px-4 min-h-[70vh] bg-fixed flex items-center justify-center"
+                className="relative text-center text-white py-16 px-4 min-h-[85vh] bg-fixed flex items-center justify-center"
                 style={{
                     backgroundImage: `url(${bgImg})`,
                     backgroundSize: "cover",
