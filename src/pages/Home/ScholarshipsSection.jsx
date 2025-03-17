@@ -20,7 +20,7 @@ const ScholarshipsSection = () => {
     return (
         <section className="max-w-screen-xl mx-auto py-12 px-4">
             <h2 className="text-3xl font-bold text-center mb-8 text-[#b91c1c]">
-                Latest Top Scholarships
+                Latest Scholarships
             </h2>
 
             {scholarships.length === 0 ? (
