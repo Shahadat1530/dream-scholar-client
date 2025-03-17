@@ -19,9 +19,9 @@ const NavBar = () => {
             <li><NavLink to="/scholarships">All Scholarships</NavLink></li>
             {user && user.email && (
                 isAdmin || isModerator ? (
-                    <li><NavLink to="/adminDashboard">Admin Dashboard</NavLink></li>
+                    <li><NavLink to="/adminDashboard/myProfile">Admin Dashboard</NavLink></li>
                 ) : (
-                    <li><NavLink to="/userDashboard">User Dashboard</NavLink></li>
+                    <li><NavLink to="/userDashboard/myProfile">User Dashboard</NavLink></li>
                 )
             )}
         </>

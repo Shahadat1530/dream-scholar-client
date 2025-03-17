@@ -54,7 +54,7 @@ const MyReviews = () => {
 
                 const updatedReview = {
                     comment: newComment,
-                    date: new Date().toISOString().split("T")[0] // Update date to today's date (YYYY-MM-DD)
+                    date: new Date().toISOString().split("T")[0]
                 };
 
                 const res = await axiosSecure.patch(`/reviews/${review._id}`, updatedReview);
@@ -66,12 +66,11 @@ const MyReviews = () => {
         });
     };
 
-
     return (
         <div className="container mx-auto py-10 px-4">
             <h2 className="text-2xl font-bold text-center mb-6">📝 My Reviews</h2>
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white shadow-md rounded-lg">
+                <table className="min-w-full bg-white shadow-md rounded-lg text-xs sm:text-sm md:text-base">
                     <thead className="bg-blue-500 text-white">
                         <tr>
                             <th className="py-2 px-4">Scholarship</th>
@@ -95,11 +94,11 @@ const MyReviews = () => {
                                     <td className="py-2 px-4">{review.scholarshipName}</td>
                                     <td className="py-2 px-4">{review.universityName}</td>
                                     <td className="py-2 px-4 text-yellow-500 font-bold">{review.rating} ⭐</td>
-                                    <td className="py-2 px-4">{review.comment}</td>
+                                    <td className="py-2 px-4 break-words">{review.comment}</td>
                                     <td className="py-2 px-4">{review.date}</td>
-                                    <td className="py-2 px-4 space-x-2">
-                                        <button onClick={() => handleEdit(review)} className="bg-yellow-500 text-white px-3 py-1 rounded">Edit</button>
-                                        <button onClick={() => handleDelete(review._id)} className="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+                                    <td className="py-2 px-4 flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                                        <button onClick={() => handleEdit(review)} className="bg-yellow-500 text-white px-3 py-1 rounded w-full sm:w-auto">Edit</button>
+                                        <button onClick={() => handleDelete(review._id)} className="bg-red-500 text-white px-3 py-1 rounded w-full sm:w-auto">Delete</button>
                                     </td>
                                 </tr>
                             ))
@@ -108,6 +107,7 @@ const MyReviews = () => {
                 </table>
             </div>
         </div>
+
     );
 };
 

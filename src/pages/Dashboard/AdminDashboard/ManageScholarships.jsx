@@ -55,49 +55,54 @@ const ManageScholarships = () => {
     };
 
     return (
-        <div className="p-6 max-w-6xl mx-auto bg-gray-200 shadow-md rounded-lg">
+        <div className="p-4 md:p-6 max-w-6xl mx-auto bg-gray-200 shadow-md rounded-lg">
             <Helmet>
                 <title>Manage Scholarships</title>
             </Helmet>
-            <h2 className="text-2xl font-bold mb-4">Manage Scholarships</h2>
-            <table className="min-w-full bg-white border border-gray-300 mt-6">
-                <thead>
-                    <tr>
-                        <th className="border px-4 py-2">Scholarship Name</th>
-                        <th className="border px-4 py-2">University</th>
-                        <th className="border px-4 py-2">Category</th>
-                        <th className="border px-4 py-2">Degree</th>
-                        <th className="border px-4 py-2">Application Fees</th>
-                        <th className="border px-4 py-2">Actions</th>
-                        <th className="border px-4 py-2">Cancel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {scholarships.map(scholarship => (
-                        <tr key={scholarship._id}>
-                            <td className="border px-4 py-2">{scholarship.scholarshipName}</td>
-                            <td className="border px-4 py-2">{scholarship.universityName}</td>
-                            <td className="border px-4 py-2">{scholarship.subjectCategory}</td>
-                            <td className="border px-4 py-2">{scholarship.scholarshipCategory}</td>
-                            <td className="border px-4 py-2">${scholarship.applicationFees}</td>
-                            <td className="border px-4 py-2">
-                                <Link to={`/scholarships/details/${scholarship._id}`}
-                                    className="bg-green-500 text-white px-2 py-1 rounded"
-                                >Details</Link>
-                                <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2" onClick={() => handleEdit(scholarship)}>Edit</button>
-                            </td>
-                            <td className='px-2'>
-                                <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => handleDelete(scholarship._id)}>Delete</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <h2 className="text-2xl font-bold mb-4 text-center">Manage Scholarships</h2>
 
+            {/* Responsive Table */}
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border border-gray-300 mt-6">
+                    <thead>
+                        <tr className="bg-gray-100">
+                            <th className="border px-2 md:px-4 py-2 text-sm md:text-base">Scholarship Name</th>
+                            <th className="border px-2 md:px-4 py-2 text-sm md:text-base">University</th>
+                            <th className="border px-2 md:px-4 py-2 text-sm md:text-base">Category</th>
+                            <th className="border px-2 md:px-4 py-2 text-sm md:text-base">Degree</th>
+                            <th className="border px-2 md:px-4 py-2 text-sm md:text-base">Application Fees</th>
+                            <th className="border px-2 md:px-4 py-2 text-sm md:text-base">Actions</th>
+                            <th className="border px-2 md:px-4 py-2 text-sm md:text-base">Cancel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {scholarships.map(scholarship => (
+                            <tr key={scholarship._id} className="text-sm md:text-base">
+                                <td className="border px-2 md:px-4 py-2">{scholarship.scholarshipName}</td>
+                                <td className="border px-2 md:px-4 py-2">{scholarship.universityName}</td>
+                                <td className="border px-2 md:px-4 py-2">{scholarship.subjectCategory}</td>
+                                <td className="border px-2 md:px-4 py-2">{scholarship.scholarshipCategory}</td>
+                                <td className="border px-2 md:px-4 py-2">${scholarship.applicationFees}</td>
+                                <td className="border px-2 md:px-4 py-2 flex flex-col md:flex-row gap-1">
+                                    <Link to={`/scholarships/details/${scholarship._id}`}
+                                        className="bg-green-500 text-white px-2 py-1 rounded text-center"
+                                    >Details</Link>
+                                    <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => handleEdit(scholarship)}>Edit</button>
+                                </td>
+                                <td className="border px-2 md:px-4 py-2">
+                                    <button className="bg-red-500 text-white px-2 py-1 rounded w-full md:w-auto" onClick={() => handleDelete(scholarship._id)}>Delete</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Responsive Edit Modal */}
             {isEditModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-                    <div className="bg-white p-6 rounded shadow-lg w-96">
-                        <h2 className="text-xl font-bold mb-4">Edit Scholarship</h2>
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 p-4">
+                    <div className="bg-white p-6 rounded shadow-lg w-full max-w-sm md:max-w-lg">
+                        <h2 className="text-xl font-bold mb-4 text-center">Edit Scholarship</h2>
                         <form onSubmit={handleSubmit(handleSaveEdit)}>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700">Scholarship Name</label>
@@ -111,43 +116,9 @@ const ManageScholarships = () => {
                                 {errors.universityName && <span className="text-red-500">Required</span>}
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Subject Category</label>
-                                <select {...register('subjectCategory', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                    <option value="" disabled>Select Subject</option>
-                                    <option value="Agriculture">Agriculture</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Doctor">Doctor</option>
-                                </select>
-                                {errors.subjectCategory && <span className="text-red-500">This field is required</span>}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Scholarship Category</label>
-                                <select {...register('scholarshipCategory', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                                    <option value="" disabled>Select Scholarship Type</option>
-                                    <option value="Full fund">Full fund</option>
-                                    <option value="Partial">Partial</option>
-                                    <option value="Self-fund">Self-fund</option>
-                                </select>
-                                {errors.scholarshipCategory && <span className="text-red-500">This field is required</span>}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Application Fees</label>
-                                <input type="number" {...register('applicationFees', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-                                {errors.applicationFees && <span className="text-red-500">Required</span>}
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Service Charge</label>
-                                <input type="number" {...register('serviceCharge', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-                                {errors.serviceCharge && <span className="text-red-500">Required</span>}
-                            </div>
-
-                            <div className="mt-4 flex justify-between">
-                                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Update</button>
-                                <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded-md" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
+                            <div className="mt-4 flex flex-col md:flex-row justify-between gap-2">
+                                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md w-full md:w-auto">Update</button>
+                                <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded-md w-full md:w-auto" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
                             </div>
                         </form>
                     </div>

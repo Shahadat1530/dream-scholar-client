@@ -37,17 +37,19 @@ const AllScholarships = () => {
                 </button>
             </div>
 
-
             <div className="grid md:grid-cols-3 gap-4">
                 {filteredScholarships.length > 0 ? (
                     filteredScholarships.map(scholarship => (
-                        <div key={scholarship._id} className="border p-4 rounded-md hover:shadow-md">
+                        <div key={scholarship._id}
+                            className="p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-white"
+                            style={{ background: "linear-gradient(to top, #B91C1C, #BFFCFB)" }}
+                        >
                             <img src={scholarship?.universityImage} alt={scholarship?.universityName} className="w-full h-40 object-cover rounded-md" />
                             <h3 className="text-lg font-semibold mt-2">{scholarship.scholarshipName}</h3>
-                            <p className="text-sm text-gray-600">{scholarship.universityName}</p>
-                            <p className="text-sm mb-2 text-gray-600">{scholarship.subjectCategory}</p>
+                            <p className="text-sm">{scholarship.universityName}</p>
+                            <p className="text-sm mb-2">{scholarship.subjectCategory}</p>
                             <Link to={`details/${scholarship._id}`}
-                                className="mt-2 bg-green-500 text-white px-4 py-2 rounded-md"
+                                className="mt-2 bg-white text-red-700 px-4 py-2 rounded-md font-semibold hover:bg-gray-200 transition duration-300"
                             >
                                 Details
                             </Link>

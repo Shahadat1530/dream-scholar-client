@@ -97,7 +97,7 @@ const MyApplications = () => {
         <div className="container mx-auto py-10 px-4">
             <h2 className="text-2xl font-bold text-center mb-6">📄 My Applications</h2>
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white shadow-md rounded-lg">
+                <table className="min-w-full bg-white shadow-md rounded-lg text-xs sm:text-sm md:text-base">
                     <thead className="bg-blue-500 text-white">
                         <tr>
                             <th className="py-2 px-4">University Name</th>
@@ -129,16 +129,18 @@ const MyApplications = () => {
                                     <td className="py-2 px-4">{app.degree}</td>
                                     <td className="py-2 px-4">${app.applicationFees}</td>
                                     <td className="py-2 px-4">${app.serviceCharge}</td>
-                                    <td className={`py-2 px-4 font-bold ${app.applicationStatus === "pending" ? "text-yellow-500" : app.applicationStatus === "Completed" ? "text-green-500" : app.applicationStatus === "Rejected" ? "text-red-500" : "text-blue-500"}`}>{app.applicationStatus}</td>
-                                    <td className="py-2 px-4 space-y-1">
-                                        <Link to={`/scholarships/details/${app.scholarShipId}`} className="btn bg-blue-500 text-white px-3 py-1 rounded">Details</Link>
+                                    <td className={`py-2 px-4 font-bold ${app.applicationStatus === "pending" ? "text-yellow-500" : app.applicationStatus === "Completed" ? "text-green-500" : app.applicationStatus === "Rejected" ? "text-red-500" : "text-blue-500"}`}>
+                                        {app.applicationStatus}
+                                    </td>
+                                    <td className="py-2 px-4 flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                                        <Link to={`/scholarships/details/${app.scholarShipId}`} className="btn bg-blue-500 text-white px-3 py-1 rounded w-full sm:w-auto">Details</Link>
                                         {app.applicationStatus === "pending" && (
-                                            <button className="bg-yellow-500 text-white px-3 py-1 rounded">Edit</button>
+                                            <button className="bg-yellow-500 text-white px-3 py-1 rounded w-full sm:w-auto">Edit</button>
                                         )}
-                                        <button onClick={() => handleDelete(app._id)} className="bg-red-500 text-white px-3 py-1 rounded">Cancel</button>
+                                        <button onClick={() => handleDelete(app._id)} className="bg-red-500 text-white px-3 py-1 rounded w-full sm:w-auto">Cancel</button>
                                     </td>
                                     <td className="py-2 px-4">
-                                        <button onClick={() => openReviewModal(app)} className="bg-green-500 text-white px-3 py-1 rounded">Review</button>
+                                        <button onClick={() => openReviewModal(app)} className="bg-green-500 text-white px-3 py-1 rounded w-full sm:w-auto">Review</button>
                                     </td>
                                 </tr>
                             ))
@@ -147,9 +149,9 @@ const MyApplications = () => {
                 </table>
             </div>
             {isReviewModalOpen && selectedApp && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-6 rounded shadow-lg w-96">
-                        <h2 className="text-xl font-bold mb-4">Submit Review for {selectedApp.university}</h2>
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-4 sm:px-0">
+                    <div className="bg-white p-6 rounded shadow-lg w-full sm:w-96">
+                        <h2 className="text-xl font-bold mb-4 text-center">Submit Review for {selectedApp.university}</h2>
                         <form onSubmit={handleSubmit(onSubmitReview)}>
                             <label className="block mb-2">Rating:</label>
                             <input type="number" min="1" max="5" {...register("rating")} className="w-full p-2 border rounded mb-4" required />
@@ -157,13 +159,16 @@ const MyApplications = () => {
                             <label className="block mb-2">Review Comment:</label>
                             <textarea {...register("comment")} className="w-full p-2 border rounded mb-4" placeholder="Write your review..." required></textarea>
 
-                            <button type="button" onClick={closeReviewModal} className="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
-                            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded">Submit</button>
+                            <div className="flex flex-col sm:flex-row items-center gap-2">
+                                <button type="button" onClick={closeReviewModal} className="bg-red-500 text-white px-4 py-2 rounded w-full sm:w-auto">Cancel</button>
+                                <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded w-full sm:w-auto">Submit</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             )}
         </div>
+
     );
 };
 

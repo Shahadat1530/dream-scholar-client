@@ -56,45 +56,43 @@ const AllUsers = () => {
     };
 
     return (
-        <div>
+        <div className="w-full px-4">
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
+                <table className="table table-zebra w-full text-sm">
                     <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Action</th>
+                        <tr className="bg-gray-200 text-xs md:text-sm">
+                            <th className="p-2">#</th>
+                            <th className="p-2">Name</th>
+                            <th className="p-2">Email</th>
+                            <th className="p-2">Role</th>
+                            <th className="p-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            users.map((user, index) =>
-                                <tr key={user._id}>
-                                    <th>{index + 1}</th>
-                                    <td>{user?.name}</td>
-                                    <td>{user?.email}</td>
-                                    <td>
-                                        <select
-                                            value={user?.role}
-                                            onChange={(e) => handleRoleUpdate(user, e.target.value)}
-                                            disabled={user?.role === "admin"}
-                                            className="select select-bordered select-sm"
-                                        >
-                                            <option value="user">User</option>
-                                            <option value="moderator">Moderator</option>
-                                            <option value="admin">Admin</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-lg">
-                                            <FaTrashAlt className='text-red-600'></FaTrashAlt>
-                                        </button>
-                                    </td>
-                                </tr>)
-                        }
-
+                        {users.map((user, index) => (
+                            <tr key={user._id} className="border-b">
+                                <th className="p-2">{index + 1}</th>
+                                <td className="p-2">{user?.name}</td>
+                                <td className="p-2 break-all">{user?.email}</td>
+                                <td className="p-2">
+                                    <select
+                                        value={user?.role}
+                                        onChange={(e) => handleRoleUpdate(user, e.target.value)}
+                                        disabled={user?.role === "admin"}
+                                        className="select select-bordered select-sm min-w-[100px]"
+                                    >
+                                        <option value="user">User</option>
+                                        <option value="moderator">Moderator</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </td>
+                                <td className="p-2">
+                                    <button onClick={() => handleDeleteUser(user)} className="btn btn-ghost btn-sm">
+                                        <FaTrashAlt className="text-red-600" />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
