@@ -48,7 +48,7 @@ const NavBar = () => {
                     {user && user.email ? (
                         <>
                             <img className="w-10 h-10 rounded-full border border-gray-300" src={user?.photoURL} alt="User Avatar" />
-                            <button onClick={logOut} className="bg-primary text-text font-semibold py-2 px-4 rounded-md">
+                            <button onClick={logOut} className="bg-primary text-white font-semibold py-2 px-4 rounded-md">
                                 Log Out
                             </button>
                         </>
