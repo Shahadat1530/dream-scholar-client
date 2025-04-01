@@ -28,37 +28,28 @@ const ScholarshipsSection = () => {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {scholarships.map((scholarship) => (
-                        <div
-                            key={scholarship._id}
-                            className="relative shadow-lg rounded-lg overflow-hidden p-4 flex flex-col bg-primary text-white"
-                        >
-                            {/* Image with spacing */}
-                            <div className="bg-white p-2 rounded-lg">
-                                <img
-                                    src={scholarship.universityImage}
-                                    alt={scholarship.universityName}
-                                    className="w-full h-40 object-cover rounded-lg"
-                                />
-                            </div>
+                        <div key={scholarship._id} 
+                             className="relative group shadow-lg rounded-lg overflow-hidden bg-primary text-white transition-all duration-300 border-b-4 border-accent">
 
-                            {/* Scholarship details */}
-                            <div className="p-4 flex-grow">
-                                <h3 className="text-xl font-bold text-white">
-                                    {scholarship.scholarshipName}
-                                </h3>
+                            {/* Image - Default View */}
+                            <img 
+                                src={scholarship.universityImage} 
+                                alt={scholarship.universityName} 
+                                className="w-full h-52 object-cover rounded-lg transition-all duration-300 group-hover:brightness-50"
+                            />
+
+                            {/* Scholarship Details - Shown on Hover */}
+                            <div className="absolute inset-0 bg-primary bg-opacity-90 flex flex-col p-4 justify-center items-center opacity-0 group-hover:opacity-100 transition-all duration-300 text-center">
+                                <h3 className="text-xl font-bold">{scholarship.scholarshipName}</h3>
                                 <p className="text-sm">{scholarship.universityName} ({scholarship.universityCountry})</p>
                                 <p className="text-sm">Rank: <span className="font-semibold">{scholarship.universityRank}</span></p>
                                 <p className="text-sm">Subject: <span className="font-semibold">{scholarship.subjectCategory}</span></p>
                                 <p className="text-sm">Category: <span className="font-semibold">{scholarship.scholarshipCategory}</span></p>
-                                <p className="font-semibold text-white">Tuition Fees: ${scholarship.tuitionFees}</p>
-                            </div>
+                                <p className="font-semibold">Tuition Fees: ${scholarship.tuitionFees}</p>
 
-                            {/* Button at bottom */}
-                            <div className="mt-auto">
-                                <Link
-                                    to={`/scholarships/details/${scholarship._id}`}
-                                    className="block text-center bg-secondary text-white py-2 rounded-md font-semibold hover:bg-opacity-80"
-                                >
+                                {/* View Details Button */}
+                                <Link to={`/scholarships/details/${scholarship._id}`}
+                                    className="mt-4 bg-secondary text-white px-4 py-2 rounded-md font-semibold hover:bg-opacity-80 transition-all duration-300">
                                     View Details
                                 </Link>
                             </div>
