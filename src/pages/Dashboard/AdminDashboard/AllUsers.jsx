@@ -57,6 +57,7 @@ const AllUsers = () => {
 
     return (
         <div className="w-full px-4">
+            <h3 className='text-2xl text-primary font-bold text-center py-4'>Users</h3>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full text-sm">
                     <thead>

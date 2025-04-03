@@ -62,7 +62,7 @@ const AddScholar = () => {
             <Helmet>
                 <title>Add Scholar</title>
             </Helmet>
-            <h2 className="text-2xl font-bold mb-4">Add Scholarship</h2>
+            <h2 className="text-2xl text-primary text-center font-bold mb-4">Add Scholarship</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Scholarship Name</label>
@@ -210,7 +210,7 @@ const AddScholar = () => {
                     />
                 </div>
 
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Add Scholarship</button>
+                <button type="submit" className="bg-accent hover:bg-secondary text-white px-4 py-2 rounded-md">Add Scholarship</button>
             </form>
         </div>
     );

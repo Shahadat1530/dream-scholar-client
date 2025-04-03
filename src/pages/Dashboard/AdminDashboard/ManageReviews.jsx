@@ -44,13 +44,13 @@ const ManageReviews = () => {
 
     return (
         <div className="container mx-auto py-10 px-4">
-            <h2 className="text-2xl font-bold text-center mb-6">📝 All Reviews</h2>
+            <h2 className="text-2xl text-primary font-bold text-center mb-6">📝 All Reviews</h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {reviews.length === 0 ? (
                     <p className="text-center text-gray-500">No reviews found.</p>
                 ) : (
                     reviews.map((review) => (
-                        <div key={review._id} className="shadow-md rounded-lg p-4 text-white" style={{ background: 'linear-gradient(to top, #b91c1c, black)' }}>
+                        <div key={review._id} className="shadow-md rounded-lg p-4 text-white" style={{ background: 'linear-gradient(to top, #f61945, black)' }}>
                             {/* Reviewer Image */}
                             <img
                                 src={review.userImage || "https://i.ibb.co/4pDNDk1/default-avatar.png"}
@@ -68,7 +68,7 @@ const ManageReviews = () => {
                             <p className="mt-2 text-gray-100 text-center">{review.comment}</p>
 
                             <div className="flex justify-center mt-3">
-                                <button onClick={() => handleDelete(review._id)} className="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+                                <button onClick={() => handleDelete(review._id)} className="bg-accent text-white px-4 py-2 rounded">Delete</button>
                             </div>
                         </div>
                     ))

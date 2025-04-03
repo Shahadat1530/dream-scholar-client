@@ -59,7 +59,7 @@ const ManageScholarships = () => {
             <Helmet>
                 <title>Manage Scholarships</title>
             </Helmet>
-            <h2 className="text-2xl font-bold mb-4 text-center">Manage Scholarships</h2>
+            <h2 className="text-2xl text-primary font-bold mb-4 text-center">Manage Scholarships</h2>
 
             {/* Responsive Table */}
             <div className="overflow-x-auto">
@@ -85,12 +85,12 @@ const ManageScholarships = () => {
                                 <td className="border px-2 md:px-4 py-2">${scholarship.applicationFees}</td>
                                 <td className="border px-2 md:px-4 py-2 flex flex-col md:flex-row gap-1">
                                     <Link to={`/scholarships/details/${scholarship._id}`}
-                                        className="bg-green-500 text-white px-2 py-1 rounded text-center"
+                                        className="bg-secondary  hover:bg-accent text-white px-2 py-1 rounded text-center"
                                     >Details</Link>
-                                    <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => handleEdit(scholarship)}>Edit</button>
+                                    <button className="bg-accent hover:bg-secondary text-white px-2 py-1 rounded" onClick={() => handleEdit(scholarship)}>Edit</button>
                                 </td>
                                 <td className="border px-2 md:px-4 py-2">
-                                    <button className="bg-red-500 text-white px-2 py-1 rounded w-full md:w-auto" onClick={() => handleDelete(scholarship._id)}>Delete</button>
+                                    <button className="bg-red-500 hover:bg-primary text-white px-2 py-1 rounded w-full md:w-auto" onClick={() => handleDelete(scholarship._id)}>Delete</button>
                                 </td>
                             </tr>
                         ))}
@@ -117,8 +117,8 @@ const ManageScholarships = () => {
                             </div>
 
                             <div className="mt-4 flex flex-col md:flex-row justify-between gap-2">
-                                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md w-full md:w-auto">Update</button>
-                                <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded-md w-full md:w-auto" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
+                                <button type="submit" className="bg-accent text-white px-4 py-2 rounded-md w-full md:w-auto">Update</button>
+                                <button type="button" className="btn-outline text-accent hover:bg-primary px-4 py-2 rounded-md w-full md:w-auto" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
                             </div>
                         </form>
                     </div>
