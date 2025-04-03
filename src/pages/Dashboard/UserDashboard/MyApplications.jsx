@@ -95,10 +95,10 @@ const MyApplications = () => {
 
     return (
         <div className="container mx-auto py-10 px-4">
-            <h2 className="text-2xl font-bold text-center mb-6">📄 My Applications</h2>
+            <h2 className="text-2xl text-primary font-bold text-center mb-6">📄 My Applications</h2>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white shadow-md rounded-lg text-xs sm:text-sm md:text-base">
-                    <thead className="bg-blue-500 text-white">
+                    <thead className="bg-primary text-white">
                         <tr>
                             <th className="py-2 px-4">University Name</th>
                             <th className="py-2 px-4">Address</th>

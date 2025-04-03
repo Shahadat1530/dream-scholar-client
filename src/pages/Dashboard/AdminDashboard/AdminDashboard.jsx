@@ -18,7 +18,7 @@ const AdminDashboard = () => {
 
             {/* Mobile Menu Button */}
             <button
-                className="md:hidden text-white text-3xl mb-4 bg-accent] p-2 rounded-md"
+                className="md:hidden z-30 text-white text-3xl mb-4 bg-accent p-2 rounded-md"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <FaBars />
