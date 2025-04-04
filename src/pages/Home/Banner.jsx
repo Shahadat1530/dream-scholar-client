@@ -5,6 +5,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import bgImg from '../../assets/bg-img.jpg';
+import slide1Img from '../../assets/slide1.png'
+import slide2Img from '../../assets/slide2.jpg';
+import slide3Img from '../../assets/slide3.jpg';
 import { FaGoogleScholar } from "react-icons/fa6";
 
 const Banner = () => {
@@ -35,7 +38,7 @@ const Banner = () => {
             </div>
 
             {/* Slider */}
-            <div className="w-full my-4">
+            <div className="w-full my-5">
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
                     spaceBetween={30}
@@ -43,23 +46,38 @@ const Banner = () => {
                     navigation
                     pagination={{ clickable: true }}
                     autoplay={{ delay: 2000, disableOnInteraction: false }}
-                    className="w-full h-[400px]"
+                    className="w-full h-[600px]"
                 >
+                    {/* Slide 1 */}
                     <SwiperSlide>
-                        <div className="h-full flex items-center justify-center bg-blue-500 text-white text-2xl font-bold">
-                            Explore Top Scholarships Worldwide!
+                        <div className="h-full flex items-center bg-primary shadow-md rounded-lg text-white overflow-hidden">
+                            <img src={slide1Img} alt="Scholarship 1" className="w-1/2 h-full object-cover" />
+                            <div className="w-1/2 p-6 flex flex-col justify-center">
+                                <h3 className="text-2xl font-bold">Explore Top Scholarships Worldwide!</h3>
+                                <p className="mt-2">Find and apply for the best scholarships that match your academic interests.</p>
+                            </div>
                         </div>
                     </SwiperSlide>
 
+                    {/* Slide 2 */}
                     <SwiperSlide>
-                        <div className="h-full flex items-center justify-center bg-green-500 text-white text-2xl font-bold">
-                            Apply for Scholarships with Ease
+                        <div className="h-full flex items-center bg-secondary text-white shadow-md rounded-lg overflow-hidden">
+                            <img src={slide2Img} alt="Scholarship 2" className="w-1/2 h-full object-cover" />
+                            <div className="w-1/2 p-6 flex flex-col justify-center">
+                                <h3 className="text-2xl font-bold">Apply for Scholarships with Ease</h3>
+                                <p className="mt-2">Streamlined application process to help you secure funding for your education.</p>
+                            </div>
                         </div>
                     </SwiperSlide>
 
+                    {/* Slide 3 */}
                     <SwiperSlide>
-                        <div className="h-full flex items-center justify-center bg-purple-500 text-white text-2xl font-bold">
-                            Your Future Starts Here 🚀
+                        <div className="h-full flex items-center bg-accent text-white shadow-md rounded-lg overflow-hidden">
+                            <img src={slide3Img} alt="Scholarship 3" className="w-1/2 h-full object-cover" />
+                            <div className="w-1/2 p-6 flex flex-col justify-center">
+                                <h3 className="text-2xl font-bold">Your Future Starts Here 🚀</h3>
+                                <p className="mt-2">Take the first step towards a bright future with DreamScholar.</p>
+                            </div>
                         </div>
                     </SwiperSlide>
                 </Swiper>
