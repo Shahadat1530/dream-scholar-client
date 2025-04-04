@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import ScholarshipsSection from './ScholarshipsSection';
 import Testimonials from './Testimonials';
 import HowToApply from './HowToApply';
+import CertificateSection from './CertificateSection';
 
 const Home = () => {
     return (
@@ -15,6 +16,7 @@ const Home = () => {
             <Banner></Banner>
             <ScholarshipsSection></ScholarshipsSection>
             <HowToApply></HowToApply>
+            <CertificateSection></CertificateSection>
             <Testimonials></Testimonials>
         </div>
     );
