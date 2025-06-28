@@ -9,7 +9,6 @@ const ScholarshipsSection = () => {
     useEffect(() => {
         axiosPublic.get('/scholar/top')
             .then(response => {
-                console.log(response.data);
                 setScholarships(response.data);
             })
             .catch(err => {
