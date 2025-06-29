@@ -17,94 +17,99 @@ import MyApplications from "../pages/Dashboard/UserDashboard/MyApplications";
 import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews";
 import ManageScholarships from "../pages/Dashboard/AdminDashboard/ManageScholarships";
 import ManageReviews from "../pages/Dashboard/AdminDashboard/ManageReviews";
+import PaymentPage from "../pages/payment/PaymentPage";
 
 
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout></MainLayout>,
-      children: [
-        {
-          path: '/',
-          element: <Home></Home>
-        },
-        {
-          path: 'scholarships',
-          element: <AllScholarships></AllScholarships>
-        },
-        {
-          path: 'scholarships/details/:id',
-          element: <PrivateRoute><Details></Details></PrivateRoute>,
-          loader: ({params}) => fetch(`https://dream-scholar-hub-server.vercel.app/scholar/${params.id}`)
-        },
-        {
-          path: '/applicationForm/:id',
-          element: <PrivateRoute><ApplicationForm></ApplicationForm></PrivateRoute>,
-          loader: ({params}) => fetch(`https://dream-scholar-hub-server.vercel.app/scholar/${params.id}`)
-        },
-        {
-          path: 'login',
-          element: <Login></Login>
-        },
-        {
-          path: 'register',
-          element: <SignUp></SignUp>
-        }
-      ]
-    },
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
+      {
+        path: 'scholarships',
+        element: <AllScholarships></AllScholarships>
+      },
+      {
+        path: 'scholarships/details/:id',
+        element: <PrivateRoute><Details></Details></PrivateRoute>,
+        loader: ({ params }) => fetch(`https://dream-scholar-hub-server.vercel.app/scholar/${params.id}`)
+      },
+      {
+        path: 'payment',
+        element: <PrivateRoute><PaymentPage /></PrivateRoute>
+      },
+      {
+        path: '/applicationForm/:id',
+        element: <PrivateRoute><ApplicationForm></ApplicationForm></PrivateRoute>,
+        loader: ({ params }) => fetch(`https://dream-scholar-hub-server.vercel.app/scholar/${params.id}`)
+      },
+      {
+        path: 'login',
+        element: <Login></Login>
+      },
+      {
+        path: 'register',
+        element: <SignUp></SignUp>
+      }
+    ]
+  },
 
-    // users routes
-    {
-      path: '/userDashboard',
-      element: <PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>,
-      children: [
-        {
-          path: 'myProfile',
-          element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
-        },
-        {
-          path: 'myApplication',
-          element: <MyApplications></MyApplications>
-        },
-        {
-          path: 'myReviews',
-          element: <MyReviews></MyReviews>
-        }
-      ]
-    },
+  // users routes
+  {
+    path: '/userDashboard',
+    element: <PrivateRoute><UserDashboard></UserDashboard></PrivateRoute>,
+    children: [
+      {
+        path: 'myProfile',
+        element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+      },
+      {
+        path: 'myApplication',
+        element: <MyApplications></MyApplications>
+      },
+      {
+        path: 'myReviews',
+        element: <MyReviews></MyReviews>
+      }
+    ]
+  },
 
-    // admin and moderator routes
-    {
-      path: '/adminDashboard',
-      element: <PrivateRoute><AdminDashboard></AdminDashboard></PrivateRoute>,
-      children: [
-        {
-          path:'myProfile',
-          element: <MyProfile></MyProfile>
-        },
-        {
-          path:'addScholarships',
-          element: <AddScholar></AddScholar>
-        },
-        {
-          path:'manageApplication',
-          element: <ManageScholarships></ManageScholarships>
-        },
-        {
-          path:'manageReviews',
-          element: <ManageReviews></ManageReviews>
-        },
-        {
-          path:'users',
-          element: <AllUsers></AllUsers>
-        },
-      ]
-    },
-    {
-      path:'/*',
-      element: <ErrorPage></ErrorPage>
-    }
-  ]);
+  // admin and moderator routes
+  {
+    path: '/adminDashboard',
+    element: <PrivateRoute><AdminDashboard></AdminDashboard></PrivateRoute>,
+    children: [
+      {
+        path: 'myProfile',
+        element: <MyProfile></MyProfile>
+      },
+      {
+        path: 'addScholarships',
+        element: <AddScholar></AddScholar>
+      },
+      {
+        path: 'manageApplication',
+        element: <ManageScholarships></ManageScholarships>
+      },
+      {
+        path: 'manageReviews',
+        element: <ManageReviews></ManageReviews>
+      },
+      {
+        path: 'users',
+        element: <AllUsers></AllUsers>
+      },
+    ]
+  },
+  {
+    path: '/*',
+    element: <ErrorPage></ErrorPage>
+  }
+]);
 
 export default router;  
