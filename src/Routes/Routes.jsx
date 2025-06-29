@@ -40,8 +40,9 @@ const router = createBrowserRouter([
         loader: ({ params }) => fetch(`https://dream-scholar-hub-server.vercel.app/scholar/${params.id}`)
       },
       {
-        path: 'payment',
-        element: <PrivateRoute><PaymentPage /></PrivateRoute>
+        path: 'payment/:id',
+        element: <PrivateRoute><PaymentPage /></PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:5000/scholar/${params.id}`)
       },
       {
         path: '/applicationForm/:id',

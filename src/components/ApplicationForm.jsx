@@ -23,7 +23,11 @@ const ApplicationForm = () => {
                 const res = await axiosSecure.get('/users');
                 setUsersData(res.data);
             } catch (error) {
-                console.error("Error fetching users:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.message
+                });
             }
         };
         fetchUsers();
