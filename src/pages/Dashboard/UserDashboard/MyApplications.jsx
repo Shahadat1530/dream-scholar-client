@@ -73,8 +73,8 @@ const MyApplications = () => {
 
     const onSubmitReview = async (data) => {
         const reviewData = {
-            rating: data.rating,
-            comment: data.comment,
+            rating: data?.rating,
+            comment: data?.comment,
             date: new Date().toISOString().split('T')[0],
             scholarshipName: selectedApp?.scholarshipName,
             universityName: selectedApp?.university,
@@ -121,23 +121,23 @@ const MyApplications = () => {
                             </tr>
                         ) : (
                             applications.map((app) => (
-                                <tr key={app._id} className="border-b">
-                                    <td className="py-2 px-4">{app.university}</td>
-                                    <td className="py-2 px-4">{app.address}</td>
-                                    <td className="py-2 px-4">{app.feedback || "No feedback"}</td>
-                                    <td className="py-2 px-4">{app.subject}</td>
-                                    <td className="py-2 px-4">{app.degree}</td>
-                                    <td className="py-2 px-4">${app.applicationFees}</td>
-                                    <td className="py-2 px-4">${app.serviceCharge}</td>
-                                    <td className={`py-2 px-4 font-bold ${app.applicationStatus === "pending" ? "text-yellow-500" : app.applicationStatus === "Completed" ? "text-green-500" : app.applicationStatus === "Rejected" ? "text-red-500" : "text-blue-500"}`}>
-                                        {app.applicationStatus}
+                                <tr key={app?._id} className="border-b">
+                                    <td className="py-2 px-4">{app?.university}</td>
+                                    <td className="py-2 px-4">{app?.address}</td>
+                                    <td className="py-2 px-4">{app?.feedback || "No feedback"}</td>
+                                    <td className="py-2 px-4">{app?.subject}</td>
+                                    <td className="py-2 px-4">{app?.degree}</td>
+                                    <td className="py-2 px-4">${app?.applicationFees}</td>
+                                    <td className="py-2 px-4">${app?.serviceCharge}</td>
+                                    <td className={`py-2 px-4 font-bold ${app?.applicationStatus === "pending" ? "text-yellow-500" : app?.applicationStatus === "Completed" ? "text-green-500" : app?.applicationStatus === "Rejected" ? "text-red-500" : "text-blue-500"}`}>
+                                        {app?.applicationStatus}
                                     </td>
                                     <td className="py-2 px-4 flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                                        <Link to={`/scholarships/details/${app.scholarShipId}`} className="btn bg-blue-500 text-white px-3 py-1 rounded w-full sm:w-auto">Details</Link>
-                                        {app.applicationStatus === "pending" && (
-                                            <button className="bg-yellow-500 text-white px-3 py-1 rounded w-full sm:w-auto">Edit</button>
+                                        <Link to={`/scholarships/details/${app?.scholarShipId}`} className="btn bg-blue-500 text-white px-3 py-1 rounded w-full sm:w-auto">Details</Link>
+                                        {app?.applicationStatus === "pending" && (
+                                            <Link to={`/userDashboard/editApplication/${app?._id}`} className="bg-yellow-500 text-white px-3 py-1 rounded w-full sm:w-auto">Edit</Link>
                                         )}
-                                        <button onClick={() => handleDelete(app._id)} className="bg-red-500 text-white px-3 py-1 rounded w-full sm:w-auto">Cancel</button>
+                                        <button onClick={() => handleDelete(app?._id)} className="bg-red-500 text-white px-3 py-1 rounded w-full sm:w-auto">Cancel</button>
                                     </td>
                                     <td className="py-2 px-4">
                                         <button onClick={() => openReviewModal(app)} className="bg-green-500 text-white px-3 py-1 rounded w-full sm:w-auto">Review</button>
@@ -151,7 +151,7 @@ const MyApplications = () => {
             {isReviewModalOpen && selectedApp && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-4 sm:px-0">
                     <div className="bg-white p-6 rounded shadow-lg w-full sm:w-96">
-                        <h2 className="text-xl font-bold mb-4 text-center">Submit Review for {selectedApp.university}</h2>
+                        <h2 className="text-xl font-bold mb-4 text-center">Submit Review for {selectedApp?.university}</h2>
                         <form onSubmit={handleSubmit(onSubmitReview)}>
                             <label className="block mb-2">Rating:</label>
                             <input type="number" min="1" max="5" {...register("rating")} className="w-full p-2 border rounded mb-4" required />

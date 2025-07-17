@@ -18,6 +18,8 @@ import MyReviews from "../pages/Dashboard/UserDashboard/MyReviews";
 import ManageScholarships from "../pages/Dashboard/AdminDashboard/ManageScholarships";
 import ManageReviews from "../pages/Dashboard/AdminDashboard/ManageReviews";
 import PaymentPage from "../pages/payment/PaymentPage";
+import PaymentHistory from "../pages/Dashboard/AdminDashboard/PaymentHistory";
+import EditApplicationForm from "../components/EditApplicationForm";
 
 
 
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: 'scholarships',
         element: <AllScholarships></AllScholarships>
+      },
+      {
+        path: 'history',
+        element: <PaymentHistory></PaymentHistory>
       },
       {
         path: 'scholarships/details/:id',
@@ -72,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: 'myApplication',
         element: <MyApplications></MyApplications>
+      },
+      {
+        path: 'editApplication/:id',
+        element: <EditApplicationForm />,
       },
       {
         path: 'myReviews',

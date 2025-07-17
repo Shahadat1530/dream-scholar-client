@@ -54,24 +54,24 @@ const ApplicationForm = () => {
 
             if (res.data.success) {
                 const appliedScholar = {
-                    phoneNumber: data.phoneNumber,
-                    applicantPhoto: res.data.data.display_url,
-                    address: data.address,
-                    gender: data.gender,
-                    degree: data.degree,
-                    sscResult: parseFloat(data.sscResult),
-                    hscResult: parseFloat(data.hscResult),
-                    studyGap: data.studyGap || "No Study Gap",
-                    university: scholarship.universityName,
-                    category: scholarship.scholarshipCategory,
-                    subject: scholarship.subjectCategory,
+                    phoneNumber: data?.phoneNumber,
+                    applicantPhoto: res.data?.data?.display_url,
+                    address: data?.address,
+                    gender: data?.gender,
+                    degree: data?.degree,
+                    sscResult: parseFloat(data?.sscResult),
+                    hscResult: parseFloat(data?.hscResult),
+                    studyGap: data?.studyGap || "No Study Gap",
+                    university: scholarship?.universityName,
+                    category: scholarship?.scholarshipCategory,
+                    subject: scholarship?.subjectCategory,
                     userName: user?.displayName,
                     userEmail: user?.email,
                     userId: currentUser?._id || "N/A",
-                    scholarShipId: scholarship._id,
-                    scholarshipName: scholarship.scholarshipName,
-                    applicationFees: scholarship.applicationFees,
-                    serviceCharge: scholarship.serviceCharge,
+                    scholarShipId: scholarship?._id,
+                    scholarshipName: scholarship?.scholarshipName,
+                    applicationFees: scholarship?.applicationFees,
+                    serviceCharge: scholarship?.serviceCharge,
                     applicationStatus: 'pending',
                     currentDate: new Date().toISOString().split('T')[0],
                 };
@@ -86,11 +86,11 @@ const ApplicationForm = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    navigate('/scholarships');
+                    navigate('/userDashboard/myApplication');
                 }
             }
         } catch (error) {
-            Swal.fire("Error", "Image upload failed. Try again.", "error");
+            Swal.fire("Error: Something went wrong!");
         }
     };
 
@@ -150,9 +150,9 @@ const ApplicationForm = () => {
             </select>
 
             {/* Read-Only Fields */}
-            <input type="text" value={scholarship.universityName} readOnly className="border p-2 w-full rounded-md mb-2 bg-gray-100" />
-            <input type="text" value={scholarship.scholarshipCategory} readOnly className="border p-2 w-full rounded-md mb-2 bg-gray-100" />
-            <input type="text" value={scholarship.subjectCategory} readOnly className="border p-2 w-full rounded-md mb-2 bg-gray-100" />
+            <input type="text" value={scholarship?.universityName} readOnly className="border p-2 w-full rounded-md mb-2 bg-gray-100" />
+            <input type="text" value={scholarship?.scholarshipCategory} readOnly className="border p-2 w-full rounded-md mb-2 bg-gray-100" />
+            <input type="text" value={scholarship?.subjectCategory} readOnly className="border p-2 w-full rounded-md mb-2 bg-gray-100" />
 
             {/* Submit Button */}
             <button type="submit" className="bg-secondary text-white p-2 rounded-md w-full font-semibold hover:bg-accent transition duration-300">
