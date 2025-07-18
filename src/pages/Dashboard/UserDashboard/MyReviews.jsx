@@ -46,14 +46,32 @@ const MyReviews = () => {
     const handleEdit = (review) => {
         Swal.fire({
             title: "Edit Review",
-            input: "textarea",
-            inputValue: review.comment,
+            html: `
+            <label class="block text-left text-sm font-medium mb-1">Rating (1-5)</label>
+            <input id="ratingInput" type="number" min="1" max="5" value="${review.rating}" class="swal2-input" />
+
+            <label class="block text-left text-sm font-medium mb-1 mt-4">Comment</label>
+            <textarea id="commentInput" class="swal2-textarea" rows="4">${review.comment}</textarea>
+        `,
+            focusConfirm: false,
             showCancelButton: true,
             confirmButtonText: "Save",
-            preConfirm: async (newComment) => {
+            preConfirm: () => {
+                const rating = document.getElementById('ratingInput').value;
+                const comment = document.getElementById('commentInput').value;
 
+                if (!rating || rating < 1 || rating > 5 || !comment.trim()) {
+                    Swal.showValidationMessage("Please enter a valid rating (1-5) and a comment.");
+                    return;
+                }
+
+                return { rating, comment };
+            }
+        }).then(async (result) => {
+            if (result.isConfirmed) {
                 const updatedReview = {
-                    comment: newComment,
+                    rating: result.value.rating,
+                    comment: result.value.comment,
                     date: new Date().toISOString().split("T")[0]
                 };
 
@@ -61,6 +79,8 @@ const MyReviews = () => {
                 if (res.data.modifiedCount > 0) {
                     await refetch();
                     Swal.fire("Updated!", "Your review has been updated.", "success");
+                } else {
+                    Swal.fire("No changes", "Your review was not updated.", "info");
                 }
             }
         });
