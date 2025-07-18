@@ -20,6 +20,7 @@ import ManageReviews from "../pages/Dashboard/AdminDashboard/ManageReviews";
 import PaymentPage from "../pages/payment/PaymentPage";
 import PaymentHistory from "../pages/Dashboard/AdminDashboard/PaymentHistory";
 import EditApplicationForm from "../components/EditApplicationForm";
+import ManageApplications from "../pages/Dashboard/AdminDashboard/ManageApplications";
 
 
 
@@ -104,8 +105,12 @@ const router = createBrowserRouter([
         element: <AddScholar></AddScholar>
       },
       {
-        path: 'manageApplication',
+        path: 'manageScholarships',
         element: <ManageScholarships></ManageScholarships>
+      },
+      {
+        path: 'manageApplications',
+        element: <ManageApplications></ManageApplications>
       },
       {
         path: 'manageReviews',

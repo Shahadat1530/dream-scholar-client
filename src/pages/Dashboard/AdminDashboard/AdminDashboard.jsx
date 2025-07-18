@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { CgProfile } from 'react-icons/cg';
 import { FaHome, FaSchool, FaUsers, FaBars } from 'react-icons/fa';
 import { MdReviews, MdSettingsApplications } from 'react-icons/md';
+import { SiSemanticscholar } from "react-icons/si";
 import { NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../../hooks/useAdmin';
 
@@ -38,7 +39,12 @@ const AdminDashboard = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/adminDashboard/manageApplication' className="flex items-center gap-2 hover:text-[#bffcfc]" onClick={() => setIsOpen(false)}>
+                        <NavLink to='/adminDashboard/manageScholarships' className="flex items-center gap-2 hover:text-[#bffcfc]" onClick={() => setIsOpen(false)}>
+                            <SiSemanticscholar /> Manage Scholarships
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/adminDashboard/manageApplications' className="flex items-center gap-2 hover:text-[#bffcfc]" onClick={() => setIsOpen(false)}>
                             <MdSettingsApplications /> Manage Applications
                         </NavLink>
                     </li>

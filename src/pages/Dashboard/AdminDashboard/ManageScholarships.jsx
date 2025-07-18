@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { Helmet } from 'react-helmet-async';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { CgDetailsMore } from "react-icons/cg";
+import { MdDeleteForever, MdEditDocument } from "react-icons/md";
 
 const ManageScholarships = () => {
     const axiosSecure = useAxiosSecure();
@@ -86,11 +88,11 @@ const ManageScholarships = () => {
                                 <td className="border px-2 md:px-4 py-2 flex flex-col md:flex-row gap-1">
                                     <Link to={`/scholarships/details/${scholarship._id}`}
                                         className="bg-secondary  hover:bg-accent text-white px-2 py-1 rounded text-center"
-                                    >Details</Link>
-                                    <button className="bg-accent hover:bg-secondary text-white px-2 py-1 rounded" onClick={() => handleEdit(scholarship)}>Edit</button>
+                                    ><CgDetailsMore /></Link>
+                                    <button className="bg-accent hover:bg-secondary text-white px-2 py-1 rounded" onClick={() => handleEdit(scholarship)}><MdEditDocument /></button>
                                 </td>
                                 <td className="border px-2 md:px-4 py-2">
-                                    <button className="bg-red-500 hover:bg-primary text-white px-2 py-1 rounded w-full md:w-auto" onClick={() => handleDelete(scholarship._id)}>Delete</button>
+                                    <button className="bg-red-500 hover:bg-primary text-white px-2 py-1 rounded w-full md:w-auto" onClick={() => handleDelete(scholarship._id)}><MdDeleteForever /></button>
                                 </td>
                             </tr>
                         ))}
