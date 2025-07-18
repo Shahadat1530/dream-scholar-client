@@ -100,8 +100,8 @@ const ManageScholarships = () => {
 
             {/* Responsive Edit Modal */}
             {isEditModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 p-4">
-                    <div className="bg-white p-6 rounded shadow-lg w-full max-w-sm md:max-w-lg">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white rounded shadow-lg w-full max-w-lg max-h-screen overflow-y-auto p-6 m-4">
                         <h2 className="text-xl font-bold mb-4 text-center">Edit Scholarship</h2>
                         <form onSubmit={handleSubmit(handleSaveEdit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
