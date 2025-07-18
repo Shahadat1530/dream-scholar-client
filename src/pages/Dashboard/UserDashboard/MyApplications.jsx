@@ -134,9 +134,17 @@ const MyApplications = () => {
                                     </td>
                                     <td className="py-2 px-4 flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
                                         <Link to={`/scholarships/details/${app?.scholarShipId}`} className="btn bg-blue-500 text-white px-3 py-1 rounded w-full sm:w-auto">Details</Link>
-                                        {app?.applicationStatus === "pending" && (
-                                            <Link to={`/userDashboard/editApplication/${app?._id}`} className="bg-yellow-500 text-white px-3 py-1 rounded w-full sm:w-auto">Edit</Link>
-                                        )}
+                                        {
+                                            app?.applicationStatus === "pending" ? (
+                                                <Link to={`/userDashboard/editApplication/${app?._id}`} className="bg-yellow-500 text-white px-3 py-1 rounded w-full sm:w-auto">
+                                                    Edit
+                                                </Link>
+                                            ) : (
+                                                <button disabled className="bg-gray-400 text-white px-3 py-1 rounded w-full sm:w-auto cursor-not-allowed">
+                                                    Edit
+                                                </button>
+                                            )
+                                        }
                                         <button onClick={() => handleDelete(app?._id)} className="bg-red-500 text-white px-3 py-1 rounded w-full sm:w-auto">Cancel</button>
                                     </td>
                                     <td className="py-2 px-4">

@@ -103,24 +103,78 @@ const ManageScholarships = () => {
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 p-4">
                     <div className="bg-white p-6 rounded shadow-lg w-full max-w-sm md:max-w-lg">
                         <h2 className="text-xl font-bold mb-4 text-center">Edit Scholarship</h2>
-                        <form onSubmit={handleSubmit(handleSaveEdit)}>
+                        <form onSubmit={handleSubmit(handleSaveEdit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Scholarship Name</label>
-                                <input type="text" {...register('scholarshipName', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-                                {errors.scholarshipName && <span className="text-red-500">Required</span>}
+                                <label className="block text-sm font-medium">Scholarship Name</label>
+                                <input {...register('scholarshipName', { required: true })} className="input input-bordered w-full" />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">University Name</label>
-                                <input type="text" {...register('universityName', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-                                {errors.universityName && <span className="text-red-500">Required</span>}
+                                <label className="block text-sm font-medium">University Name</label>
+                                <input {...register('universityName', { required: true })} className="input input-bordered w-full" />
                             </div>
 
-                            <div className="mt-4 flex flex-col md:flex-row justify-between gap-2">
+                            <div>
+                                <label className="block text-sm font-medium">University Country</label>
+                                <input {...register('universityCountry')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">University City</label>
+                                <input {...register('universityCity')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">University Rank</label>
+                                <input type="number" {...register('universityRank')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">Subject Category</label>
+                                <input {...register('subjectCategory')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">Scholarship Category</label>
+                                <input {...register('scholarshipCategory')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">Tuition Fees</label>
+                                <input type="number" {...register('tuitionFees')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">Application Fees</label>
+                                <input type="number" {...register('applicationFees')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">Service Charge</label>
+                                <input type="number" {...register('serviceCharge')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">Application Deadline</label>
+                                <input type="date" {...register('applicationDeadline')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium">Scholarship Post Date</label>
+                                <input type="date" {...register('scholarshipPostDate')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label className="block text-sm font-medium">Posted Email</label>
+                                <input readOnly type="email" {...register('postedEmail')} className="input input-bordered w-full" />
+                            </div>
+
+                            <div className="md:col-span-2 flex flex-col md:flex-row justify-end items-center gap-4 pt-2">
                                 <button type="submit" className="bg-accent text-white px-4 py-2 rounded-md w-full md:w-auto">Update</button>
-                                <button type="button" className="btn-outline text-accent hover:bg-primary px-4 py-2 rounded-md w-full md:w-auto" onClick={() => setIsEditModalOpen(false)}>Cancel</button>
+                                <button type="button" onClick={() => setIsEditModalOpen(false)} className="btn-outline text-accent px-4 py-2 rounded-md w-full md:w-auto">Cancel</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             )}
