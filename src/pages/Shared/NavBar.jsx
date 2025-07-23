@@ -31,11 +31,12 @@ const NavBar = () => {
     <>
       <li>
         <NavLink
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "bg-accent text-text px-3 py-1 rounded-md outline-none ring-0 focus:bg-accent"
-              : "text-text px-3 py-1 rounded-md focus:outline-none"
+              ? "bg-blue-300 px-4 py-2 rounded-md outline-none ring-0 focus:bg-blue-300"
+              : "px-4 py-2 rounded-md focus:outline-none"
           }
         >
           Home
@@ -43,11 +44,12 @@ const NavBar = () => {
       </li>
       <li>
         <NavLink
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           to="/scholarships"
           className={({ isActive }) =>
             isActive
-              ? "bg-accent text-text px-3 py-1 rounded-md outline-none ring-0 focus:bg-accent"
-              : "text-text px-3 py-1 rounded-md focus:outline-none"
+              ? "bg-blue-300 px-4 py-2 rounded-md outline-none ring-0 focus:bg-blue-300"
+              : "px-4 py-2 rounded-md focus:outline-none"
           }
         >
           All Scholarships
@@ -57,11 +59,12 @@ const NavBar = () => {
         (isAdmin || isModerator ? (
           <li>
             <NavLink
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               to="/adminDashboard/myProfile"
               className={({ isActive }) =>
                 isActive
-                  ? "bg-accent text-text px-3 py-1 rounded-md"
-                  : "text-text px-3 py-1 rounded-md"
+                  ? "bg-blue-300 px-4 py-2 rounded-md outline-none ring-0 focus:bg-blue-300"
+                  : "px-4 py-2 rounded-md focus:outline-none"
               }
             >
               Admin Dashboard
@@ -70,11 +73,12 @@ const NavBar = () => {
         ) : (
           <li>
             <NavLink
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               to="/userDashboard/myProfile"
               className={({ isActive }) =>
                 isActive
-                  ? "bg-accent text-text px-3 py-1 rounded-md"
-                  : "text-text px-3 py-1 rounded-md"
+                  ? "bg-blue-300 px-4 py-2 rounded-md outline-none ring-0 focus:bg-blue-300"
+                  : "px-4 py-2 rounded-md focus:outline-none"
               }
             >
               User Dashboard
@@ -86,9 +90,8 @@ const NavBar = () => {
 
   return (
     <div
-      className={`bg-white sticky top-0 z-50 text-text font-semibold transition-shadow duration-300 ${
-        isScrolled ? 'shadow-md' : ''
-      }`}
+      className={`bg-white sticky top-0 z-50 text-text font-semibold transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''
+        }`}
     >
       <div className="navbar max-w-screen-2xl mx-auto px-4 md:px-8 flex justify-between items-center">
         <div className="flex items-center gap-4">
@@ -115,7 +118,7 @@ const NavBar = () => {
               />
               <button
                 onClick={logOut}
-                className="bg-primary text-white font-semibold py-2 px-4 rounded-md"
+                className="bg-white font-semibold py-2 px-4 rounded-xl border hover:bg-blue-50"
               >
                 Log Out
               </button>
@@ -140,7 +143,7 @@ const NavBar = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 w-3/5 bg-background shadow-md p-4">
+        <div className="lg:hidden absolute top-20 left-0 w-3/5 bg-slate-50 shadow-md p-4">
           <ul className="flex flex-col items-center gap-4 text-text">{links}</ul>
         </div>
       )}
