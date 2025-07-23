@@ -86,11 +86,11 @@ const NavBar = () => {
 
   return (
     <div
-      className={`bg-background sticky top-0 z-50 text-text font-semibold transition-shadow duration-300 ${
+      className={`bg-white sticky top-0 z-50 text-text font-semibold transition-shadow duration-300 ${
         isScrolled ? 'shadow-md' : ''
       }`}
     >
-      <div className="navbar max-w-screen-2xl mx-auto px-4 flex justify-between items-center">
+      <div className="navbar max-w-screen-2xl mx-auto px-4 md:px-8 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <button
             className="lg:hidden text-2xl"
@@ -98,7 +98,7 @@ const NavBar = () => {
           >
             <FiMenu />
           </button>
-          <NavLink to="/" className="text-xl font-bold text-primary">
+          <NavLink to="/" className="text-2xl font-bold text-blue-600">
             Dream Scholar
           </NavLink>
         </div>
@@ -124,13 +124,13 @@ const NavBar = () => {
             <>
               <NavLink
                 to="/login"
-                className="bg-secondary text-text font-semibold py-2 px-4 rounded-md"
+                className="bg-white font-semibold py-2 px-4 rounded-xl border hover:bg-blue-50"
               >
                 Login
               </NavLink>
               <NavLink
                 to="/register"
-                className="bg-accent text-white font-semibold py-2 px-4 rounded-md"
+                className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl border hover:bg-blue-700"
               >
                 Register
               </NavLink>
