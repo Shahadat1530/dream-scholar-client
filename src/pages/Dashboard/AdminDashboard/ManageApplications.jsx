@@ -2,17 +2,43 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaEye, FaCommentDots, FaTimesCircle } from 'react-icons/fa';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const ManageApplications = () => {
     const axiosSecure = useAxiosSecure();
 
-    const { data: applications = [], isLoading } = useQuery({
+    const { data: applications = [], isLoading, refetch } = useQuery({
         queryKey: ['scholarApplied'],
         queryFn: async () => {
             const res = await axiosSecure.get('/scholarApplied');
             return res.data;
         }
     });
+
+    const handleStatusChange = async (id, newStatus) => {
+        try {
+            const res = await axiosSecure.put(`/scholarApplied/${id}`, {
+                applicationStatus: newStatus,
+            });
+            if (res.data?.result?.modifiedCount > 0) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Status Updated',
+                    text: `Status changed to "${newStatus}"`,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                refetch();
+
+            }
+        } catch (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to update status',
+            });
+        }
+    };
 
     if (isLoading) return <p className="text-center py-10">Loading...</p>;
 
@@ -35,14 +61,28 @@ const ManageApplications = () => {
                     </thead>
                     <tbody>
                         {applications.map((app, index) => (
-                            <tr key={index} className="border-t hover:bg-gray-50">
+                            <tr key={app._id} className="border-t hover:bg-gray-50">
                                 <td className="p-3">{index + 1}</td>
                                 <td className="p-3">{app.userName || 'N/A'}</td>
                                 <td className="p-3">{app.userEmail}</td>
                                 <td className="p-3">{app.scholarshipName}</td>
                                 <td className="p-3">{app.university}</td>
-                                <td className="p-3">${(app.applicationFees || 0) + (app.serviceCharge || 0)}</td>
-                                <td className="p-3 capitalize text-blue-600 font-medium">{app.applicationStatus}</td>
+                                <td className="p-3">
+                                    ${(app.applicationFees || 0) + (app.serviceCharge || 0)}
+                                </td>
+                                <td className="p-3 capitalize">
+                                    <select
+                                        value={app.applicationStatus}
+                                        onChange={(e) =>
+                                            handleStatusChange(app._id, e.target.value)
+                                        }
+                                        className="border rounded px-2 py-1"
+                                    >
+                                        <option value="pending">Pending</option>
+                                        <option value="processing">Processing</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </td>
                                 <td className="p-3 flex flex-wrap gap-2 justify-center">
                                     <button className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-1">
                                         <FaEye /> Details

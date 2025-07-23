@@ -15,12 +15,12 @@ const EditApplicationForm = () => {
 
     useEffect(() => {
         axiosSecure.get(`/scholarApplied/${id}`)
-            .then(res => reset(res.data))     // hydrate the form
+            .then(res => reset(res.data))  
             .catch(() => Swal.fire('Error', 'Could not load data', 'error'));
     }, [axiosSecure, id, reset]);
 
     const onSubmit = async (data) => {
-        const { _id, ...safeData } = data; // Remove _id before sending
+        const { _id, ...safeData } = data; 
 
         try {
             const res = await axiosSecure.put(`/scholarApplied/${id}`, safeData);
