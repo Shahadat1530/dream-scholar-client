@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
+    const [selectedRole, setSelectedRole] = useState('all');
+
     const { refetch, data: users = [] } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -31,12 +33,11 @@ const AllUsers = () => {
                             refetch();
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: "User has been deleted.",
                                 icon: "success"
                             });
                         }
-                    })
-
+                    });
             }
         });
     };
@@ -54,12 +55,35 @@ const AllUsers = () => {
                 }
             });
     };
+    console.log('All user roles:', users.map(u => `"${u.role}"`));
+
+    const filteredUsers = selectedRole === 'all'
+        ? users
+        : users.filter(user => user.role === selectedRole);
 
     return (
         <div className="w-full px-4">
             <h3 className='text-2xl text-primary font-bold text-center py-4'>Users</h3>
+
+            {/* Role Filter */}
+            <div className="flex justify-end mb-4">
+                <label className="mr-2 font-semibold">Filter by role:</label>
+                <select
+                    className="select select-bordered select-sm"
+                    value={selectedRole}
+                    onChange={(e) => setSelectedRole(e.target.value)}
+                >
+                    <option value="all">All</option>
+                    <option value="user">User</option>
+                    <option value="moderator">Moderator</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            {/* Table */}
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full text-sm">
+                    
                     <thead>
                         <tr className="bg-gray-200 text-xs md:text-sm">
                             <th className="p-2">#</th>
@@ -70,7 +94,7 @@ const AllUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user, index) => (
+                        {filteredUsers.map((user, index) => (
                             <tr key={user._id} className="border-b">
                                 <th className="p-2">{index + 1}</th>
                                 <td className="p-2">{user?.name}</td>
