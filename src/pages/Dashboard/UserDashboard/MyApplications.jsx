@@ -124,7 +124,17 @@ const MyApplications = () => {
                                 <tr key={app?._id} className="border-b">
                                     <td className="py-2 px-4">{app?.university}</td>
                                     <td className="py-2 px-4">{app?.address}</td>
-                                    <td className="py-2 px-4">{app?.feedback || "No feedback"}</td>
+                                    <td className="p-3 text-gray-600 italic">
+                                        {app?.feedback
+                                            ? app?.feedback
+                                            : app?.applicationStatus === 'pending'
+                                                ? 'Waiting for document verification!'
+                                                : app?.applicationStatus === 'processing'
+                                                    ? 'Application under review by admissions committee.'
+                                                    : app?.applicationStatus === 'completed'
+                                                        ? 'Congratulations! You have been selected for the scholarship.'
+                                                        : 'N/A'}
+                                    </td>
                                     <td className="py-2 px-4">{app?.subject}</td>
                                     <td className="py-2 px-4">{app?.degree}</td>
                                     <td className="py-2 px-4">${app?.applicationFees}</td>

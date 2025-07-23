@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaEye, FaCommentDots, FaTimesCircle } from 'react-icons/fa';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 
 const ManageApplications = () => {
     const axiosSecure = useAxiosSecure();
+    const [feedbackModal, setFeedbackModal] = useState(null);
+    const [feedbackText, setFeedbackText] = useState('');
 
     const { data: applications = [], isLoading, refetch } = useQuery({
         queryKey: ['scholarApplied'],
@@ -29,13 +31,42 @@ const ManageApplications = () => {
                     showConfirmButton: false
                 });
                 refetch();
-
             }
-        } catch (err) {
+        } catch {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'Failed to update status',
+            });
+        }
+    };
+
+    const handleFeedbackSubmit = async () => {
+        if (!feedbackText.trim()) return;
+
+        try {
+            const res = await axiosSecure.put(`/scholarApplied/${feedbackModal._id}`, {
+                feedback: feedbackText,
+                applicationStatus: 'rejected' // Set to rejected
+            });
+
+            if (res.data?.result?.modifiedCount > 0) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Feedback Submitted',
+                    text: 'Application has been rejected with feedback.',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                setFeedbackModal(null);
+                setFeedbackText('');
+                refetch();
+            }
+        } catch {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to submit feedback.',
             });
         }
     };
@@ -72,9 +103,9 @@ const ManageApplications = () => {
                                 </td>
                                 <td className="p-3 capitalize">
                                     <select
-                                        value={app.applicationStatus}
+                                        value={app?.applicationStatus}
                                         onChange={(e) =>
-                                            handleStatusChange(app._id, e.target.value)
+                                            handleStatusChange(app?._id, e.target.value)
                                         }
                                         className="border rounded px-2 py-1"
                                     >
@@ -87,11 +118,11 @@ const ManageApplications = () => {
                                     <button className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-1">
                                         <FaEye /> Details
                                     </button>
-                                    <button className="btn btn-sm bg-green-500 text-white hover:bg-green-600 flex items-center gap-1">
+                                    <button
+                                        onClick={() => setFeedbackModal(app)}
+                                        className="btn btn-sm bg-green-500 text-white hover:bg-green-600 flex items-center gap-1"
+                                    >
                                         <FaCommentDots /> Feedback
-                                    </button>
-                                    <button className="btn btn-sm bg-red-500 text-white hover:bg-red-600 flex items-center gap-1">
-                                        <FaTimesCircle /> Cancel
                                     </button>
                                 </td>
                             </tr>
@@ -99,6 +130,41 @@ const ManageApplications = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* Feedback Modal */}
+            {feedbackModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-md">
+                        <h3 className="text-lg font-semibold mb-2">
+                            Submit Feedback for {feedbackModal.userName}
+                        </h3>
+                        <textarea
+                            className="w-full border rounded p-2 mb-4"
+                            rows="4"
+                            placeholder="Write feedback here..."
+                            value={feedbackText}
+                            onChange={(e) => setFeedbackText(e.target.value)}
+                        ></textarea>
+                        <div className="flex justify-end gap-2">
+                            <button
+                                onClick={() => {
+                                    setFeedbackModal(null);
+                                    setFeedbackText('');
+                                }}
+                                className="px-4 py-2 border rounded hover:bg-gray-100"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleFeedbackSubmit}
+                                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
