@@ -21,7 +21,7 @@ const ScholarshipsSection = () => {
         <section className="max-w-screen-xl mx-auto py-12 px-4">
             <div className="flex justify-between items-center mb-12">
                 <div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                    <h2 className="text-3xl md:text-4xl font-bold text-blue-700 mb-4">
                         Top Scholarships
                     </h2>
                     <p class="text-xl text-slate-600">Discover the most popular scholarship opportunities</p>

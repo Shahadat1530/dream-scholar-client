@@ -3,7 +3,7 @@ import React from 'react';
 const WhyUs = () => {
     return (
         <section className="py-16 px-4 max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Dream Scholar?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-700">Why Dream Scholar?</h2>
             <p className="text-gray-600 mb-12">
                 We make finding and applying for scholarships simple, efficient, and successful.
             </p>

@@ -3,57 +3,51 @@ import React from "react";
 const HowToApply = () => {
     const steps = [
         {
-            id: "01",
-            title: "Create an Account",
+            number: "1",
+            title: "Search & Discover",
             description:
-                "Register to explore a diverse range of scholarships tailored to your academic goals.",
-            icon: "🎓",
+                "Browse through thousands of scholarships using our advanced search and filtering options.",
+            color: "bg-blue-100 text-blue-600",
         },
         {
-            id: "02",
-            title: "Online Application",
+            number: "2",
+            title: "Apply Easily",
             description:
-                "Submit your application online and track your progress easily.",
-            icon: "📝",
+                "Submit your applications with our streamlined process and secure document upload.",
+            color: "bg-green-100 text-green-600",
         },
         {
-            id: "03",
-            title: "Programs & Requirements",
+            number: "3",
+            title: "Track & Succeed",
             description:
-                "Check eligibility criteria and program details before applying.",
-            icon: "📖",
+                "Monitor your application status and receive updates until you achieve your scholarship goals.",
+            color: "bg-purple-100 text-purple-600",
         },
     ];
 
     return (
-        <div className="py-12">
-            <div className="max-w-6xl mx-auto px-6 text-center">
-                <h2 className="text-4xl text-primary font-bold mb-4">How to Apply to DreamScholar</h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Follow these simple steps to apply for scholarships that match your
-                    academic journey.
-                </p>
+        <section className="py-16 px-4 max-w-7xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-700">
+                How to Apply to Dream Scholar
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto mb-12">
+                Follow these simple steps to apply for scholarships that match your academic journey.
+            </p>
 
-                {/* Steps Grid */}
-                <div className="mt-10 grid md:grid-cols-3 gap-6">
-                    {steps.map((step) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {steps.map((step, idx) => (
+                    <div key={idx} className="space-y-4">
                         <div
-                            key={step.id}
-                            className="bg-primary text-white p-6 rounded-lg shadow-md text-left"
+                            className={`w-20 h-20 mx-auto flex items-center justify-center rounded-full text-2xl font-bold ${step?.color}`}
                         >
-                            <div className="flex items-center justify-between">
-                                <span className="text-4xl">{step.icon}</span>
-                                <span className="text-3xl font-bold text-secondary">
-                                    {step.id}
-                                </span>
-                            </div>
-                            <h3 className="text-2xl font-semibold mt-4">{step.title}</h3>
-                            <p className="mt-2 text-white/90">{step.description}</p>
+                            {step?.number}
                         </div>
-                    ))}
-                </div>
+                        <h3 className="text-xl font-semibold text-slate-900 mb-4">{step?.title}</h3>
+                        <p className="text-slate-600">{step?.description}</p>
+                    </div>
+                ))}
             </div>
-        </div>
+        </section>
     );
 };
 

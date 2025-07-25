@@ -71,7 +71,7 @@ const Testimonials = () => {
     return (
         <div className="py-10">
             <div className="text-center mb-6">
-                <h2 className="text-3xl font-bold text-[#b91c1c]">What Our Users Say</h2>
+                <h2 className="text-3xl font-bold text-blue-700">What Our Users Say</h2>
                 <p className="text-gray-600">Hear from students who found success with us</p>
             </div>
             <div className="max-w-4xl mx-auto px-4">

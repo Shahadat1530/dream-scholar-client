@@ -50,7 +50,7 @@ const Banner = () => {
                 >
                     {/* Slide 1 */}
                     <SwiperSlide>
-                        <div className="h-full flex items-center bg-primary shadow-md rounded-lg text-white overflow-hidden">
+                        <div className="h-full flex items-center bg-blue-100 text-blue-600 shadow-md rounded-lg overflow-hidden">
                             <img src={slide1Img} alt="Scholarship 1" className="w-1/2 h-full object-cover" />
                             <div className="w-1/2 p-6 flex flex-col justify-center">
                                 <h3 className="text-2xl font-bold">Explore Top Scholarships Worldwide!</h3>
@@ -61,7 +61,7 @@ const Banner = () => {
 
                     {/* Slide 2 */}
                     <SwiperSlide>
-                        <div className="h-full flex items-center bg-secondary text-white shadow-md rounded-lg overflow-hidden">
+                        <div className="h-full flex items-center bg-green-100 text-green-600 shadow-md rounded-lg overflow-hidden">
                             <img src={slide2Img} alt="Scholarship 2" className="w-1/2 h-full object-cover" />
                             <div className="w-1/2 p-6 flex flex-col justify-center">
                                 <h3 className="text-2xl font-bold">Apply for Scholarships with Ease</h3>
@@ -72,7 +72,7 @@ const Banner = () => {
 
                     {/* Slide 3 */}
                     <SwiperSlide>
-                        <div className="h-full flex items-center bg-accent text-white shadow-md rounded-lg overflow-hidden">
+                        <div className="h-full flex items-center bg-purple-100 text-purple-600 shadow-md rounded-lg overflow-hidden">
                             <img src={slide3Img} alt="Scholarship 3" className="w-1/2 h-full object-cover" />
                             <div className="w-1/2 p-6 flex flex-col justify-center">
                                 <h3 className="text-2xl font-bold">Your Future Starts Here 🚀</h3>
