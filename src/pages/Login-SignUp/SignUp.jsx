@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaGoogle } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import Lottie from 'lottie-react';
 import registerLottie from '../../assets/register-lottie.json';
 import { Helmet } from 'react-helmet-async';
@@ -45,7 +45,7 @@ const SignUp = () => {
                         const userInfo = {
                             name: name,
                             email: email,
-                            role : 'user'
+                            role: 'user'
                         };
 
                         axiosPublic.post('/users', userInfo)
@@ -101,46 +101,52 @@ const SignUp = () => {
     }
 
     return (
-        <div className='max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-center items-center my-7 bg-orange-50 p-3 md:p-10 rounded-lg'>
+        <div className='py-10'>
             <Helmet>
                 <title>Register</title>
             </Helmet>
-            <div className='w-96'>
-                <Lottie animationData={registerLottie}></Lottie>
+            <div className='text-center space-y-1'>
+                <h3 className="text-3xl font-bold">Create your account</h3>
+                <p className='font-thin'>Join thousands of students finding their <br /> dream scholarships</p>
             </div>
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <form onSubmit={handleSignUp} className="card-body">
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Name</span>
-                        </label>
-                        <input type="text" name='name' placeholder="Your Name" className="input input-bordered" required />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">PhotoURL</span>
-                        </label>
-                        <input type="text" name='photo' placeholder="photoURL link" className="input input-bordered" required />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Email</span>
-                        </label>
-                        <input type="email" name='email' placeholder="email" className="input input-bordered" required />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Password</span>
-                        </label>
-                        <input type="password" name='password' placeholder="password" className="input input-bordered" autoComplete='off' required />
-                    </div>
-                    <div className="form-control mt-6">
-                        <button className="btn btn-primary">Register</button>
-                    </div>
-                    <p>Already have an account?<span className='text-red-500'><Link to='/login'>Login</Link></span></p>
-                </form>
-                <button onClick={handleGoogleSignUp} className="btn bg-blue-200 m-4"><FaGoogle /> SignUp with Google</button>
-                {error && <p className="text-red-500 p-3">{error}</p>}
+            <div className='max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-center items-center my-7 p-3 md:p-10 rounded-lg'>
+                <div className='w-96'>
+                    <Lottie animationData={registerLottie} className="hidden md:block"></Lottie>
+                </div>
+                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                    <form onSubmit={handleSignUp} className="card-body">
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" name='name' placeholder="Your Name" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">PhotoURL</span>
+                            </label>
+                            <input type="text" name='photo' placeholder="photoURL link" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Email</span>
+                            </label>
+                            <input type="email" name='email' placeholder="email" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Password</span>
+                            </label>
+                            <input type="password" name='password' placeholder="password" className="input input-bordered" autoComplete='off' required />
+                        </div>
+                        <div className="form-control mt-6">
+                            <button className="btn bg-blue-600 text-white hover:bg-blue-700">Register</button>
+                        </div>
+                        <p>Already have an account? <span className='text-red-500'><Link to='/login'>Login</Link></span></p>
+                    </form>
+                    <button onClick={handleGoogleSignUp} className="btn bg-white m-4 hover:bg-blue-50"><FcGoogle className='text-xl'/> SignUp with Google</button>
+                    {error && <p className="text-red-500 p-4">{error}</p>}
+                </div>
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ import ScholarshipsSection from './ScholarshipsSection';
 import Testimonials from './Testimonials';
 import HowToApply from './HowToApply';
 import CertificateSection from './CertificateSection';
+import WhyUs from './WhyUs';
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
                 <title>Dream Scholar | Home</title>
             </Helmet>
             <Banner></Banner>
+            <WhyUs></WhyUs>
             <ScholarshipsSection></ScholarshipsSection>
             <HowToApply></HowToApply>
             <CertificateSection></CertificateSection>
