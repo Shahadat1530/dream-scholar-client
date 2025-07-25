@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import ScholarCard from "../../components/ScholarCard";
 
 const AllScholarships = () => {
     const [scholarships, setScholarships] = useState([]);
@@ -20,59 +21,51 @@ const AllScholarships = () => {
     );
 
     return (
-        <div className="container mx-auto p-4 min-h-[85vh] max-w-screen-xl">
+        <div className="container mx-auto p-4 min-h-[85vh] max-w-screen-xl px-4 sm:px-6 lg:px-8 py-8">
             <Helmet>
                 <title>Scholarships</title>
             </Helmet>
-
+            <div className="mb-7">
+                <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">All Scholarships</h1>
+                <p className="text-xl text-slate-600">Discover scholarship opportunities from top universities worldwide!!!</p>
+            </div>
             {/* Search Bar */}
             <div className="mb-4 flex">
-                <input
-                    type="text"
-                    placeholder="Search by Scholarship, University, or Degree..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="border p-2 w-full rounded-md"
-                />
-                <button className="bg-secondary text-white p-2 ml-2 rounded-md hover:bg-opacity-80">
-                    Search
-                </button>
+                <div className="mb-4 relative w-full">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                        />
+                    </svg>
+
+                    <input
+                        type="text"
+                        placeholder="Search by Scholarship, University, or Degree..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="border pl-10 pr-4 py-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
             </div>
 
             {/* Scholarship Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredScholarships.length > 0 ? (
                     filteredScholarships.map(scholarship => (
-                        <div key={scholarship._id}
-                            className="relative group shadow-lg rounded-lg overflow-hidden transition-all duration-300 text-white hover:scale-105 border-b-4 border-accent"
-                        >
-                            {/* Image (Default View) */}
-                            <img 
-                                src={scholarship?.universityImage} 
-                                alt={scholarship?.universityName} 
-                                className="w-full h-52 object-cover rounded-lg transition-all duration-300 group-hover:brightness-50"
-                            />
-
-                            {/* Scholarship Details (Shown on Hover) */}
-                            <div className="absolute inset-0 bg-primary bg-opacity-90 flex flex-col p-4 justify-center items-center opacity-0 group-hover:opacity-100 transition-all duration-300 text-center">
-                                <h3 className="text-xl font-bold">{scholarship.scholarshipName}</h3>
-                                <p className="text-sm">{scholarship.universityName} ({scholarship.universityCountry})</p>
-                                <p className="text-sm">Subject: <span className="font-semibold">{scholarship.subjectCategory}</span></p>
-                                <p className="text-sm">Category: <span className="font-semibold">{scholarship.scholarshipCategory}</span></p>
-                                <p className="font-semibold">Tuition Fees: ${scholarship.tuitionFees}</p>
-
-                                {/* View Details Button */}
-                                <Link to={`details/${scholarship._id}`}
-                                    className="mt-4 bg-secondary text-white px-4 py-2 rounded-md font-semibold hover:bg-opacity-80 transition-all duration-300"
-                                >
-                                    View Details
-                                </Link>
-                            </div>
-                        </div>
+                        <ScholarCard key={scholarship?._id} scholarship={scholarship} />
                     ))
                 ) : (
                     <div className="text-center col-span-3">
-                        <p className="text-accent text-lg font-semibold">No Scholarships Available</p>
+                        <p className="text-red-600 text-lg font-semibold">No Scholarships Available</p>
                     </div>
                 )}
             </div>

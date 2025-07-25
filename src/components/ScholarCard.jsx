@@ -13,7 +13,7 @@ const ScholarCard = ({ scholarship }) => {
                 />
                 <div>
                     <h3 className="font-semibold">{scholarship?.universityName}</h3>
-                    <p className="text-sm text-gray-500">{scholarship?.scholarshipCategory}</p>
+                    <p className="text-sm text-gray-500">{scholarship?.scholarshipName}</p>
                 </div>
             </div>
 
