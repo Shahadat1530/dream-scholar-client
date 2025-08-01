@@ -1,73 +1,100 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { CgProfile } from 'react-icons/cg';
-import { FaHome, FaBars } from 'react-icons/fa';
-import { MdReviews, MdSettingsApplications } from 'react-icons/md';
 import { NavLink, Outlet } from 'react-router-dom';
+import { FaFileAlt, FaCheckCircle, FaClock, FaStar, FaHome } from 'react-icons/fa';
 
 const UserDashboard = () => {
-    const [isOpen, setIsOpen] = useState(false);
-
     return (
-        <div className="flex flex-col md:flex-row bg-primary p-4 md:p-10 min-h-screen">
+        <div className="min-h-screen px-4 md:px-10 py-6 max-w-screen-2xl mx-auto">
             <Helmet>
                 <title>User Dashboard</title>
             </Helmet>
 
-            {/* Mobile Menu Button */}
-            <button
-                className="md:hidden z-30 text-white text-3xl mb-4 bg-accent p-2 rounded-md"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                <FaBars />
-            </button>
+            {/* Header */}
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
+                <p className="mt-1 text-gray-600">Manage your scholarship applications and profile</p>
+            </div>
 
-            {/* Sidebar */}
-            <div className={`absolute md:static w-64 min-h-screen bg-accent p-5 text-white font-bold transform ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 transition-transform duration-300 ease-in-out rounded-xl`}>
-                <ul className="space-y-4 md:text-lg">
-                    <li>
-                        <NavLink
-                            to='/userDashboard/myProfile'
-                            className="flex items-center gap-2 hover:text-[#bffcfc]"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <CgProfile /> My Profile
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to='/userDashboard/myApplication'
-                            className="flex items-center gap-2 hover:text-[#bffcfc]"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <MdSettingsApplications /> My Application
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink
-                            to='/userDashboard/myReviews'
-                            className="flex items-center gap-2 hover:text-[#bffcfc]"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <MdReviews /> My Reviews
-                        </NavLink>
-                    </li>
+            {/* Top 4 Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div className="bg-white rounded-xl p-5 shadow flex items-center gap-4">
+                    <FaFileAlt className="text-blue-600 text-2xl" />
+                    <div>
+                        <p className="text-sm text-gray-500">Total Applications</p>
+                        <p className="text-xl font-bold text-gray-800">4</p>
+                    </div>
+                </div>
+                <div className="bg-white rounded-xl p-5 shadow flex items-center gap-4">
+                    <FaCheckCircle className="text-green-600 text-2xl" />
+                    <div>
+                        <p className="text-sm text-gray-500">Completed</p>
+                        <p className="text-xl font-bold text-gray-800">1</p>
+                    </div>
+                </div>
+                <div className="bg-white rounded-xl p-5 shadow flex items-center gap-4">
+                    <FaClock className="text-blue-400 text-2xl" />
+                    <div>
+                        <p className="text-sm text-gray-500">Processing</p>
+                        <p className="text-xl font-bold text-gray-800">1</p>
+                    </div>
+                </div>
+                <div className="bg-white rounded-xl p-5 shadow flex items-center gap-4">
+                    <FaStar className="text-purple-600 text-2xl" />
+                    <div>
+                        <p className="text-sm text-gray-500">Reviews</p>
+                        <p className="text-xl font-bold text-gray-800">2</p>
+                    </div>
+                </div>
+            </div>
 
-                    <div className="divider border-t border-[#bffcfc]"></div>
-                    <li>
-                        <NavLink
-                            to='/'
-                            className="flex items-center gap-2 hover:text-[#bffcfc]"
-                            onClick={() => setIsOpen(false)}
-                        >
-                            <FaHome /> Home
-                        </NavLink>
-                    </li>
-                </ul>
+            {/* Tabs + Home Button */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 mb-6 gap-4 text-sm md:text-base font-medium">
+                <div className="flex flex-wrap gap-4">
+                    <NavLink
+                        to="/userDashboard/myProfile"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "px-4 py-2 text-blue-600 border-b-2 border-blue-600"
+                                : "px-4 py-2 text-gray-500 hover:text-blue-600"
+                        }
+                    >
+                        My Profile
+                    </NavLink>
+                    <NavLink
+                        to="/userDashboard/myApplication"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "px-4 py-2 text-blue-600 border-b-2 border-blue-600"
+                                : "px-4 py-2 text-gray-500 hover:text-blue-600"
+                        }
+                    >
+                        My Applications
+                    </NavLink>
+                    <NavLink
+                        to="/userDashboard/myReviews"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "px-4 py-2 text-blue-600 border-b-2 border-blue-600"
+                                : "px-4 py-2 text-gray-500 hover:text-blue-600"
+                        }
+                    >
+                        My Reviews
+                    </NavLink>
+                </div>
+
+                {/* Home Button */}
+                <NavLink
+                    to="/"
+                    className="flex items-center gap-2 px-4 py-2 text-gray-500 hover:text-blue-600"
+                >
+                    <FaHome className="text-lg" />
+                    <span>Home</span>
+                </NavLink>
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 p-6 md:p-10 bg-secondary rounded-xl shadow-2xl w-full">
+            <div className="bg-white rounded-xl p-6 shadow">
                 <Outlet />
             </div>
         </div>

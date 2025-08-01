@@ -96,7 +96,7 @@ const ApplicationForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mt-8 p-6 border rounded-lg shadow-md max-w-lg mx-auto bg-white">
-            <h3 className="text-2xl font-semibold mb-4 text-center text-primary">Apply for Scholarship</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-center text-blue-600">Apply for Scholarship</h3>
 
             {/* Phone Number */}
             <input {...register("phoneNumber", { required: "Phone number is required" })} type="text"
@@ -155,7 +155,7 @@ const ApplicationForm = () => {
             <input type="text" value={scholarship?.subjectCategory} readOnly className="border p-2 w-full rounded-md mb-2 bg-gray-100" />
 
             {/* Submit Button */}
-            <button type="submit" className="bg-secondary text-white p-2 rounded-md w-full font-semibold hover:bg-accent transition duration-300">
+            <button type="submit" className="bg-green-600 text-white p-2 rounded-md w-full font-semibold hover:bg-green-700 transition duration-300">
                 Submit Application
             </button>
         </form>
