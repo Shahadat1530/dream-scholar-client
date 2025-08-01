@@ -7,21 +7,21 @@ const HowToApply = () => {
             title: "Search & Discover",
             description:
                 "Browse through thousands of scholarships using our advanced search and filtering options.",
-            color: "bg-blue-100 text-blue-600",
+            color: "bg-blue-200 text-blue-600",
         },
         {
             number: "2",
             title: "Apply Easily",
             description:
                 "Submit your applications with our streamlined process and secure document upload.",
-            color: "bg-green-100 text-green-600",
+            color: "bg-green-200 text-green-600",
         },
         {
             number: "3",
             title: "Track & Succeed",
             description:
                 "Monitor your application status and receive updates until you achieve your scholarship goals.",
-            color: "bg-purple-100 text-purple-600",
+            color: "bg-purple-200 text-purple-600",
         },
     ];
 

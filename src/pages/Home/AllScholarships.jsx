@@ -30,7 +30,6 @@ const AllScholarships = () => {
                 <p className="text-xl text-slate-600">Discover scholarship opportunities from top universities worldwide!!!</p>
             </div>
             {/* Search Bar */}
-            <div className="mb-4 flex">
                 <div className="mb-4 relative w-full">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +54,6 @@ const AllScholarships = () => {
                         className="border pl-10 pr-4 py-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-            </div>
 
             {/* Scholarship Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

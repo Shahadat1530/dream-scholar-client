@@ -17,7 +17,7 @@ const ScholarCard = ({ scholarship }) => {
                 </div>
             </div>
 
-            <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
+            <span className="inline-block bg-purple-100 text-xs font-semibold px-3 py-1 rounded-full">
                 {scholarship?.subjectCategory}
             </span>
 
@@ -43,7 +43,7 @@ const ScholarCard = ({ scholarship }) => {
             {/* View Details Button */}
             <Link
                 to={`/scholarships/details/${scholarship?._id}`}
-                className="block text-center mt-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+                className="block text-center mt-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-xl transition"
             >
                 View Details
             </Link>

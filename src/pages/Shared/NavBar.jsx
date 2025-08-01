@@ -90,7 +90,7 @@ const NavBar = () => {
 
   return (
     <div
-      className={`bg-white sticky top-0 z-50 text-text font-semibold transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''
+      className={`bg-white sticky top-0 z-50 font-semibold transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''
         }`}
     >
       <div className="navbar max-w-screen-2xl mx-auto px-4 md:px-8 flex justify-between items-center">
